@@ -56,7 +56,7 @@ public class MainController {
     }
 
     public void initialize() {
-        game = new Game(Launcher.THEMES);
+        game = new Game(Launcher.cfg);
         game.setController(this);
         gamePanel = new GamePanel(game, this);
         game.setPanel(gamePanel);

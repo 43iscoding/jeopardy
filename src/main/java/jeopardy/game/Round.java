@@ -11,6 +11,8 @@ import java.util.Set;
 public class Round {
 
     private String theme;
+    private String answer;
+    private String path;
     private int score;
 
     private Queue<Player> pending = new LinkedList<>();
@@ -21,11 +23,11 @@ public class Round {
 
     private boolean started;
 
-    private String answer = "Answer";
-
-    public Round(String theme, int score) {
+    public Round(String theme, int score, String songname, String path) {
         this.theme = theme;
         this.score = score;
+        this.answer = songname;
+        this.path = path;
     }
 
     public boolean ended() {
@@ -87,7 +89,7 @@ public class Round {
     }
 
     public String toMusicPath() {
-        return theme.replace(" ", "").toLowerCase() + "/" + (score / Config.SCORE_MULTIPLIER);
+        return path;
     }
 
     public Player pendingPlayer() {
@@ -131,5 +133,9 @@ public class Round {
 
     public String getAnswer() {
         return answer;
+    }
+
+    public String getPath() {
+        return path;
     }
 }

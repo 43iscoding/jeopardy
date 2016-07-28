@@ -38,19 +38,24 @@ public class Game {
 
     private Map<String, Player> players = new HashMap<String, Player>();
 
-    public Game(List<String> themes) {
+    public Game(GameConfig cfg) {
         int currentSection = 1;
         int currentThemeInSection = 0;
-        for (String theme : themes) {
+        for (ThemeConfig theme : cfg.themes) {
 
             List<Round> roundsThisTheme = new ArrayList<>();
 
-            for (int i = 1; i <= Config.ROUND_PER_THEME; i++) {
-                roundsThisTheme.add(new Round(theme, i * Config.SCORE_MULTIPLIER));
+            int i = 0;
+            for (RoundConfig round : theme.rounds) {
+                i++;
+                roundsThisTheme.add(new Round(theme.name, i * Config.SCORE_MULTIPLIER, round.songname, round.path));
+            }
+            if (i != Config.ROUND_PER_THEME) {
+                System.out.println("WARNING! Bad round number in theme: " + theme.name + "(" + i + " instead of " + Config.ROUND_PER_THEME + ")");
             }
 
             rounds.addAll(roundsThisTheme);
-            insertRoundsToSectionTheme(currentSection, theme, roundsThisTheme);
+            insertRoundsToSectionTheme(currentSection, theme.name, roundsThisTheme);
 
             currentThemeInSection++;
             if (currentThemeInSection % Config.THEMES_PER_SECTION == 0) {
@@ -243,7 +248,7 @@ public class Game {
     }
 
     public void startTutorial() {
-        currentRound = new Round("Tutorial", 0);
+        currentRound = new Round("Tutorial", 0, "Tutorial", "tutorial");
         currentRound.start();
         tutorial = new HashSet<>(players.values());
         controller.onTutorialStarted();
