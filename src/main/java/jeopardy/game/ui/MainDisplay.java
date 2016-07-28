@@ -6,6 +6,8 @@ import jeopardy.game.Round;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,12 @@ public class MainDisplay extends JFrame {
 
     private void init() {
         setSize(950, 500);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     public void startSection(int section, Map<String, List<Round>> rounds) {

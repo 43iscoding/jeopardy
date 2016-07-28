@@ -1,5 +1,8 @@
 package jeopardy;
 
+import jeopardy.game.GameConfig;
+import jeopardy.game.RoundConfig;
+import jeopardy.game.ThemeConfig;
 import jeopardy.game.ui.MainController;
 
 import java.util.ArrayList;
@@ -29,6 +32,31 @@ public class Launcher {
         //MISC
         //put("angel_eyes57", "Dashutka");
     }};
+
+    public static GameConfig cfg = new GameConfig(
+            new ThemeConfig("CLASSICAL",
+                    new RoundConfig("Moonlight Sonata", "MoonlightSonata"),
+                    new RoundConfig("Flight Of The Bumblebee", "Bumblebee"),
+                    new RoundConfig("Rondo Alla Turca", "TurkishMarch"),
+                    new RoundConfig("In The Hall Of The Mountain King", "MountainKing"),
+                    new RoundConfig("Ride Of The Valkyries", "Valkyries")
+            ),
+            new ThemeConfig("SERIES OST",
+                    new RoundConfig("Game Of Thrones", "GameOfThrones"),
+                    new RoundConfig("Big Bang Theory", "BigBangTheory"),
+                    new RoundConfig("House MD", "HouseMD"),
+                    new RoundConfig("Doctor Who", "DoctorWho"),
+                    new RoundConfig("Twin Peaks", "TwinPeaks")
+            ),
+            new ThemeConfig("SERIES OST II",
+                    new RoundConfig("X-Files", "XFiles"),
+                    new RoundConfig("Friends", "Friends"),
+                    new RoundConfig("Sherlock", "Sherlock"),
+                    new RoundConfig("Breaking Bad", "BreakingBad"),
+                    new RoundConfig("Firefly", "Firefly")
+            )
+
+    );
 
     public static List<String> THEMES = new ArrayList<String>() {{
         add("DISNEY");

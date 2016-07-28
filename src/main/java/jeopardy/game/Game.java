@@ -212,6 +212,7 @@ public class Game {
             }
         }
         panel.onRoundEnded(rounds.isEmpty());
+        showAnswer();
     }
 
     public void setController(MainController controller) {
