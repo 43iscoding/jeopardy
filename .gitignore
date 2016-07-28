@@ -1,2 +1,3 @@
-main/target/
-main/resources/
+/main/target
+/main/resources
+/target
