@@ -7,15 +7,34 @@ import java.io.File;
 import java.io.IOException;
 
 public class Sound {
+    private static final String CAPTURE_DEVICE = "Line 1 (Virtual Audio Cable)";
+
+    private static final String CAPTURE_DESCRIPTION = "Direct Audio Device: DirectSound Playback";
+
+    private static Mixer.Info mixer;
 
     private Clip clip;
 
     public Sound() {
     }
 
+    static {
+        for (Mixer.Info info : AudioSystem.getMixerInfo()) {
+            System.out.println(info.getName() + " " + info.getDescription());
+            if (!info.getDescription().equals(CAPTURE_DESCRIPTION)) continue;
+
+            if (info.getName().equals(CAPTURE_DEVICE)) {
+                mixer = info;
+            }
+        }
+    }
+
     private Sound(File file) {
         try {
-            clip = AudioSystem.getClip();
+            AudioFormat audioFormat = new AudioFormat(8000, 16, 1, true, false);
+            clip = AudioSystem.getClip(mixer);
+            //clip = AudioSystem.getClip();
+            //AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
             clip.open(inputStream);
         } catch (IOException e){

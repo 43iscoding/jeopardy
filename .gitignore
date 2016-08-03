@@ -1,3 +1,7 @@
-/main/target
-/main/resources
 /target
+/src/main/resources
+/target
+/.idea
+*.iml
+/out
+pom.xml

@@ -59,9 +59,10 @@ public class Saves {
         }
     }
 
-    public static String retrieveChatId(Collection<String> users) {
-
-        return chatIds.get(new ArrayList<>(users));
+    public static String retrieveChatId(Map<String, String> users) {
+        ArrayList<String> keys = new ArrayList<>(users.keySet());
+        Collections.sort(keys);
+        return chatIds.get(keys);
     }
 
     public static void saveChatId(Collection<String> users, String chatId) {

@@ -4,6 +4,7 @@ import com.skype.*;
 import jeopardy.game.Config;
 import jeopardy.game.Game;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,13 +15,13 @@ public class Bot {
     private Chat chat;
 
     public Bot(Map<String, String> users, final Game game) {
-        String chatId = Saves.retrieveChatId(users.keySet());
+        String chatId = Saves.retrieveChatId(users);
         if (Config.FORCE_NEW_CHAT || chatId == null) {
             chat = createGroupChatWith(users.keySet().toArray(new String[users.size()]));
             System.out.println("Created new chat");
             Saves.saveChatId(users.keySet(), chat.getId());
         } else {
-            //chat = Skype.groupChat(chatId);
+            chat = Skype.groupChat(chatId);
             System.out.println("Reused existing chat");
 
         }
@@ -58,6 +59,7 @@ public class Bot {
     }
 
     private void registerUsers(final Game game, Map<String, String> users) throws SkypeException {
+        Map<String, String> realUsers = new HashMap<>();
         for (User user : chat.getAllMembers()) {
             if (!users.containsKey(user.getId())) {
                 continue;
@@ -68,7 +70,15 @@ public class Bot {
                 user.setDisplayName(newName);
             }
 
-            game.registerPlayer(user.getDisplayName());
+            realUsers.put(user.getId(), user.getDisplayName());
+        }
+
+        for (String id : users.keySet()) {
+            if (!realUsers.containsKey(id)) {
+                System.out.println("No real user found with id: " + id);
+                continue;
+            }
+            game.registerPlayer(realUsers.get(id));
         }
     }
 

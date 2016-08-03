@@ -13,7 +13,7 @@ public class Config {
 
     public static final boolean TUTORIAL_ENABLED = false;
 
-    public static final boolean FORCE_NEW_CHAT = true;
+    public static final boolean FORCE_NEW_CHAT = false;
 
     public static final boolean MUSIC_MODE = true;
 

@@ -49,7 +49,6 @@ public class MainController {
     }
 
     public void startGame() {
-        System.out.println("Starting game");
         frame.remove(configPanel);
         frame.add(gamePanel);
         game.start();
