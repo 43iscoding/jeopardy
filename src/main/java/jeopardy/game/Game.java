@@ -52,7 +52,7 @@ public class Game {
                 if (Config.ROUND_MULTIPLICATOR) {
                     score *= currentSection;
                 }
-                roundsThisTheme.add(new Round(theme.name, score, round.fullName(), round.getPath()));
+                roundsThisTheme.add(new Round(theme.name, score, round));
             }
             if (i != Config.ROUND_PER_THEME) {
                 System.out.println("WARNING! Bad round number in theme: " + theme.name + "(" + i + " instead of " + Config.ROUND_PER_THEME + ")");
@@ -253,7 +253,7 @@ public class Game {
     }
 
     public void startTutorial() {
-        currentRound = new Round("Tutorial", 0, "Tutorial", "tutorial");
+        currentRound = new Round("Tutorial", 0, new RoundConfig("Tutorial", "Tutorial"));
         currentRound.start();
         tutorial = new HashSet<>(players.values());
         controller.onTutorialStarted();

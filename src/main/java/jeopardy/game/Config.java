@@ -22,4 +22,6 @@ public class Config {
     public static final boolean MANUAL_SELECTION = true;
 
     public static final boolean ROUND_MULTIPLICATOR = true;
+
+    public static final boolean USE_VIRTUAL_AUDIO = false;
 }

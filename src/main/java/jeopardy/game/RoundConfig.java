@@ -14,6 +14,7 @@ public class RoundConfig {
     private String artist;
     private String song;
     private String path;
+    private float volume;
 
     public RoundConfig(String song, String path) {
         this.song = song;
@@ -24,6 +25,11 @@ public class RoundConfig {
         this.artist = artist;
         this.song = song;
         this.path = path;
+    }
+
+    public RoundConfig volume(float volume) {
+        this.volume = volume;
+        return this;
     }
 
     public RoundConfig highlight(String pattern) {
@@ -46,5 +52,9 @@ public class RoundConfig {
 
     public String getPath() {
         return path;
+    }
+
+    public float getVolume() {
+        return volume;
     }
 }

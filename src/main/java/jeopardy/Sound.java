@@ -1,5 +1,6 @@
 package jeopardy;
 
+import jeopardy.game.Config;
 import jeopardy.game.Round;
 
 import javax.sound.sampled.*;
@@ -30,39 +31,31 @@ public class Sound {
 
     private Sound(File file) {
         try {
-            clip = AudioSystem.getClip(mixer);
-            //clip = AudioSystem.getClip();
-            //AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+            clip = Config.USE_VIRTUAL_AUDIO ? AudioSystem.getClip(mixer) : AudioSystem.getClip();
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
             clip.open(inputStream);
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (LineUnavailableException e){
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e){
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e){
             e.printStackTrace();
         }
     }
 
     public static Sound playMusic(Round round) {
-        File file = new File("src/main/resources/music/" + round.toMusicPath() + ".wav");
-        if (!file.exists()) {
-            System.out.println("No music found for " + round);
-            return new Sound();
-        }
+        return playMusic(round, round.getVolume());
+    }
 
-        return new Sound(file);
+    public static Sound playMusic(Round round, float db) {
+        return playSound("music/" + round.toMusicPath(), db);
     }
 
     public static void playSound(String sound) {
         playSound(sound, 0f);
     }
 
-    public static void playSound(String sound, float db) {
-        File file = new File("src/main/resources/sounds/" + sound + ".wav");
+    public static Sound playSound(String sound, float db) {
+        File file = new File("src/main/resources/" + sound + ".wav");
         if (!file.exists()) {
             System.out.println("No sound found at " + sound);
-            return;
+            return new Sound();
         }
 
         Sound s = new Sound(file);
@@ -73,6 +66,7 @@ public class Sound {
             gainControl.setValue(db);
         }
         s.play();
+        return s;
     }
 
     public void play() {

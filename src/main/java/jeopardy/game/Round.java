@@ -15,6 +15,8 @@ public class Round {
     private String path;
     private int score;
 
+    private float volume;
+
     private Queue<Player> pending = new LinkedList<>();
     private Set<Player> wrong = new HashSet<>();
     private Set<Player> right = new HashSet<>();
@@ -23,11 +25,12 @@ public class Round {
 
     private boolean started;
 
-    public Round(String theme, int score, String songname, String path) {
+    public Round(String theme, int score, RoundConfig cfg) {
         this.theme = theme;
         this.score = score;
-        this.answer = songname;
-        this.path = path;
+        this.answer = cfg.fullName();
+        this.path = cfg.getPath();
+        this.volume = cfg.getVolume();
     }
 
     public boolean ended() {
@@ -44,6 +47,10 @@ public class Round {
 
     public void end() {
         ended = true;
+    }
+
+    public float getVolume() {
+        return volume;
     }
 
     public boolean offer(Player player) {
