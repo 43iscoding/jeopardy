@@ -48,7 +48,11 @@ public class Game {
             int i = 0;
             for (RoundConfig round : theme.rounds) {
                 i++;
-                roundsThisTheme.add(new Round(theme.name, i * Config.SCORE_MULTIPLIER, round.fullName(), round.getPath()));
+                int score = i * Config.SCORE_MULTIPLIER;
+                if (Config.ROUND_MULTIPLICATOR) {
+                    score *= currentSection;
+                }
+                roundsThisTheme.add(new Round(theme.name, score, round.fullName(), round.getPath()));
             }
             if (i != Config.ROUND_PER_THEME) {
                 System.out.println("WARNING! Bad round number in theme: " + theme.name + "(" + i + " instead of " + Config.ROUND_PER_THEME + ")");

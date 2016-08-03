@@ -20,4 +20,6 @@ public class Config {
     public static final boolean PLAYER_PANEL_CIRCLE = false;
 
     public static final boolean MANUAL_SELECTION = true;
+
+    public static final boolean ROUND_MULTIPLICATOR = true;
 }

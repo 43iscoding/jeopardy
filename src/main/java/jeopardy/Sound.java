@@ -20,7 +20,6 @@ public class Sound {
 
     static {
         for (Mixer.Info info : AudioSystem.getMixerInfo()) {
-            System.out.println(info.getName() + " " + info.getDescription());
             if (!info.getDescription().equals(CAPTURE_DESCRIPTION)) continue;
 
             if (info.getName().equals(CAPTURE_DEVICE)) {
@@ -31,7 +30,6 @@ public class Sound {
 
     private Sound(File file) {
         try {
-            AudioFormat audioFormat = new AudioFormat(8000, 16, 1, true, false);
             clip = AudioSystem.getClip(mixer);
             //clip = AudioSystem.getClip();
             //AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
