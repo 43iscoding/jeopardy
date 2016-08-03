@@ -21,7 +21,7 @@ public class Round {
     private Set<Player> wrong = new HashSet<>();
     private Set<Player> right = new HashSet<>();
 
-    private boolean ended;
+    private boolean manualEnded;
 
     private boolean started;
 
@@ -34,7 +34,7 @@ public class Round {
     }
 
     public boolean ended() {
-        return ended;
+        return manualEnded || !right.isEmpty() || everyoneAnswered();
     }
 
     public boolean started() {
@@ -46,7 +46,7 @@ public class Round {
     }
 
     public void end() {
-        ended = true;
+        manualEnded = true;
     }
 
     public float getVolume() {
@@ -72,8 +72,8 @@ public class Round {
         return wrong.size();
     }
 
-    public boolean everyoneAnswered(int size) {
-        return wrong.size() + right.size() == size;
+    public boolean everyoneAnswered() {
+        return wrong.size() + right.size() == Game.Players();
     }
 
     @Override

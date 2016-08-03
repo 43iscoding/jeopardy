@@ -13,6 +13,8 @@ import java.util.*;
  */
 public class Game {
 
+    private static Game instance;
+
     private LinkedList<Round> rounds = new LinkedList<>();
     private Map<Integer, Map<String, List<Round>>> roundsBySection = new HashMap<>();
     private Round currentRound;
@@ -28,6 +30,10 @@ public class Game {
 
     private Set<Player> tutorial;
 
+    public static int Players() {
+        return instance.players.size();
+    }
+
     public void setPanel(GamePanel panel) {
         this.panel = panel;
     }
@@ -36,9 +42,10 @@ public class Game {
         bot.sendMessage(message);
     }
 
-    private Map<String, Player> players = new HashMap<String, Player>();
+    private Map<String, Player> players = new HashMap<>();
 
     public Game(GameConfig cfg) {
+        instance = this;
         int currentSection = 1;
         int currentThemeInSection = 0;
         for (ThemeConfig theme : cfg.themes) {
@@ -189,7 +196,7 @@ public class Game {
 
         if (tutorial != null && !tutorial.isEmpty()) {
             tutorial.remove(player);
-            controller.onTutorialProgress(tutorial.size(), players.size());
+            controller.onTutorialProgress(tutorial.size());
             panel.onCorrect(player);
             if (tutorial.isEmpty()) {
                 controller.onTutorialEnded();
@@ -236,7 +243,7 @@ public class Game {
         Saves.saveScore(player);
         panel.onIncorrect(player);
         bot.sendMessage(player.getScoreMessage());
-        if (currentRound.everyoneAnswered(players.size())) {
+        if (currentRound.everyoneAnswered()) {
             endRound();
             return;
         }
@@ -249,7 +256,7 @@ public class Game {
     }
 
     public String getConfigStr() {
-        return "Game initialized with " + (rounds.size() / Config.ROUND_PER_THEME) + " themes & " + players.size() + " players";
+        return "Game initialized with " + (rounds.size() / Config.ROUND_PER_THEME) + " themes & " + Game.Players() + " players";
     }
 
     public void startTutorial() {
@@ -257,7 +264,7 @@ public class Game {
         currentRound.start();
         tutorial = new HashSet<>(players.values());
         controller.onTutorialStarted();
-        controller.onTutorialProgress(tutorial.size(), players.size());
+        controller.onTutorialProgress(tutorial.size());
     }
 
     //toggle between +N / -N
@@ -279,7 +286,7 @@ public class Game {
             panel.onIncorrect(player);
             bot.sendMessage(player.getScoreMessage());
 
-            if (currentRound.everyoneAnswered(players.size())) {
+            if (currentRound.everyoneAnswered()) {
                 endRound();
                 return;
             }

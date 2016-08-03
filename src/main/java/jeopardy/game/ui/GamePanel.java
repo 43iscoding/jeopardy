@@ -31,7 +31,7 @@ public class GamePanel extends JPanel {
     private JLabel roundLabel;
     private JLabel playerLabel;
 
-    private Sound currentSong;
+    private Sound currentSong = new Sound();
 
     private Map<Player, PlayerPanel> playerPanels = new HashMap<Player, PlayerPanel>();
 
@@ -177,6 +177,7 @@ public class GamePanel extends JPanel {
         endBtn.setEnabled(true);
 
         if (Config.MUSIC_MODE) {
+            currentSong.stop();
             initCurrentSong(round);
         }
     }
@@ -192,6 +193,11 @@ public class GamePanel extends JPanel {
 
     public void onCorrect(Player player) {
         playerPanels.get(player).correct();
+        controller.syncScore();
+    }
+
+    public void onReset(Player player) {
+        playerPanels.get(player).reset();
         controller.syncScore();
     }
 

@@ -84,8 +84,8 @@ public class MainController {
         configPanel.onTutorialEnded();
     }
 
-    public void onTutorialProgress(int remaining, int total) {
-        header.setText("Tutorial in progress: " + (total - remaining) + "/" + total);
+    public void onTutorialProgress(int remaining) {
+        header.setText("Tutorial in progress: " + (Game.Players() - remaining) + "/" + Game.Players());
     }
 
     public void syncScore() {
