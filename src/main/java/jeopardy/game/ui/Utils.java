@@ -36,4 +36,8 @@ public class Utils {
     public static String wrapAndCenter(String text) {
         return "<html><div style=\"text-align: center;\">" + text + "</html>";
     }
+
+    public static String unwrap(String text) {
+        return text.replace("<html><div style=\"text-align: center;\">", "").replace("</html>", "");
+    }
 }

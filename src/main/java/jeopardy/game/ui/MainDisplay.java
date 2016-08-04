@@ -87,4 +87,8 @@ public class MainDisplay extends JFrame {
         remove(selectionPanel);
         setVisible(true);
     }
+
+    public String printSelectionPanel() {
+        return selectionPanel.printSelectionPanel();
+    }
 }

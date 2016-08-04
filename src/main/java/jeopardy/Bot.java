@@ -32,7 +32,7 @@ public class Bot {
         }
 
         try {
-            if (users.size() > 1) {
+            if (users.size() > 1 && Config.BEAUTIFY) {
                 chat.setTopic("Jeopardy Game");
             }
 
@@ -51,7 +51,7 @@ public class Bot {
             }
             chat.send(message.toString());
             if (Config.LOG_BOT_MESSAGES) {
-                System.out.println("Bot: " + message);
+                System.out.println("Bot: \n" + message);
             }
         } catch (SkypeException e) {
             System.out.println("Failed to send message - " + e.getMessage());

@@ -24,4 +24,6 @@ public class Config {
     public static final boolean ROUND_MULTIPLICATOR = true;
 
     public static final boolean USE_VIRTUAL_AUDIO = false;
+
+    public static final boolean BEAUTIFY = false; //Welcome messages, chat topic etc.
 }

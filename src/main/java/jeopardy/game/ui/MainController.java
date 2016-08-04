@@ -65,7 +65,10 @@ public class MainController {
         if (Config.TUTORIAL_ENABLED) {
             game.startTutorial();
         }
-        game.sendMessage("Welcome to Jeopardy!");
+
+        if (Config.BEAUTIFY) {
+            game.sendMessage("Welcome to Jeopardy!");
+        }
     }
 
     public void onGameComplete(Player winner) {

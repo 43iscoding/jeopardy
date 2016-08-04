@@ -3,12 +3,15 @@ package jeopardy.game.ui;
 import jeopardy.game.Config;
 import jeopardy.game.Game;
 import jeopardy.game.Round;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +27,9 @@ public class QuestionSelectionPanel extends JPanel {
     private Game game;
 
     private int counter;
+
+    private List<JLabel> themes = new ArrayList<>();
+    private List<JButton> questions = new ArrayList<>();
 
     public QuestionSelectionPanel(Game game) throws HeadlessException {
         this.game = game;
@@ -51,7 +57,10 @@ public class QuestionSelectionPanel extends JPanel {
         int index = 0;
         while (true) {
             for (List<Round> theme : rounds.values()) {
-                if (theme.size() <= index) return;
+                if (theme.size() <= index)  {
+                    printSelectionPanel();
+                    return;
+                }
 
                 add(createRoundButton(theme.get(index)));
             }
@@ -78,9 +87,11 @@ public class QuestionSelectionPanel extends JPanel {
                 button.setText("");
                 game.showQuestionPanel(round);
                 counter--;
+                printSelectionPanel();
             }
         });
         counter++;
+        questions.add(button);
         return button;
     }
 
@@ -92,6 +103,33 @@ public class QuestionSelectionPanel extends JPanel {
         label.setBorder(new LineBorder(Color.black, 4));
         label.setForeground(themeWhite);
         label.setOpaque(true);
+        themes.add(label);
         return label;
+    }
+
+    private final int PADDING = 12;
+
+    public String printSelectionPanel() {
+        StringBuilder sb = new StringBuilder();
+        Iterator<JLabel> it = themes.iterator();
+        while (it.hasNext()) {
+            sb.append(StringUtils.center(Utils.unwrap(it.next().getText()), PADDING));
+            if (it.hasNext()) {
+                sb.append("|");
+            }
+        }
+        sb.append("\n");
+        sb.append(StringUtils.repeat("-", themes.size() * (PADDING + 1)));
+        sb.append("\n");
+
+        for (int i = 0; i < questions.size(); i++) {
+            sb.append(StringUtils.center(questions.get(i).getText(), PADDING));
+            if ((i + 1) % Config.THEMES_PER_SECTION == 0) {
+                sb.append("\n");
+            } else {
+                sb.append("|");
+            }
+        }
+        return sb.toString();
     }
 }

@@ -217,6 +217,9 @@ public class Game {
 
     public void endRound() {
         currentRound.end();
+        if (mainDisplay.sectionEnded()) {
+            panel.offerPrintScores();
+        }
         if (currentRound.last()) {
             if (!rounds.isEmpty()) {
                 panel.offerPrintScores();
@@ -315,10 +318,16 @@ public class Game {
             } else {
                 mainDisplay.startSection(currentSection, roundsBySection.get(currentSection));
                 panel.onThemeList();
+                printSelectionPanel();
             }
         } else {
             mainDisplay.showSelectionPanel();
             panel.setThemeSelection();
+            printSelectionPanel();
         }
+    }
+
+    private void printSelectionPanel() {
+        bot.sendMessage(mainDisplay.printSelectionPanel());
     }
 }
