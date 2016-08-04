@@ -311,9 +311,7 @@ public class Game {
         if (mainDisplay.sectionEnded()) {
             currentSection++;
             if (!roundsBySection.containsKey(currentSection)) {
-                System.out.println("GAME END");
                 gameComplete();
-                return;
             } else {
                 mainDisplay.startSection(currentSection, roundsBySection.get(currentSection));
                 panel.onThemeList();

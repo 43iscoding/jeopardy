@@ -51,7 +51,7 @@ public class Launcher {
                     new RoundConfig("In The Hall Of The Mountain King", "MountainKing"),
                     new RoundConfig("Ride Of The Valkyries", "Valkyries")
             ),
-            new ThemeConfig("SERIES",
+            new ThemeConfig("TV SERIES",
                     new RoundConfig("Game Of Thrones", "GameOfThrones"),
                     new RoundConfig("Big Bang Theory", "BigBangTheory"),
                     new RoundConfig("House MD", "HouseMD"),
@@ -80,7 +80,7 @@ public class Launcher {
                     new RoundConfig("Back To The Future", "BackToTheFuture")
             ),
             //ROUND 2
-            new ThemeConfig("SERIES II",
+            new ThemeConfig("TV SERIES II",
                     new RoundConfig("X-Files", "XFiles"),
                     new RoundConfig("Friends", "Friends"),
                     new RoundConfig("Sherlock", "Sherlock"),
