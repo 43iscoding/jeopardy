@@ -65,12 +65,15 @@ public class Saves {
         return chatIds.get(keys);
     }
 
-    public static void saveChatId(Collection<String> users, String chatId) {
-        if (chatIds.containsKey(new ArrayList<>(users))) {
+    public static void saveChatId(Map<String, String> users, String chatId) {
+        ArrayList<String> keys = new ArrayList<>(users.keySet());
+        Collections.sort(keys);
+
+        if (chatIds.containsKey(keys)) {
             return;
         }
 
-        chatIds.put(new ArrayList<>(users), chatId);
+        chatIds.put(keys, chatId);
 
         try (
             OutputStream file = new FileOutputStream(chatsFile, false);

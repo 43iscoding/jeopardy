@@ -19,7 +19,7 @@ public class Bot {
         if (Config.FORCE_NEW_CHAT || chatId == null) {
             chat = createGroupChatWith(users.keySet().toArray(new String[users.size()]));
             System.out.println("Created new chat");
-            Saves.saveChatId(users.keySet(), chat.getId());
+            Saves.saveChatId(users, chat.getId());
         } else {
             chat = Skype.groupChat(chatId);
             System.out.println("Reused existing chat");

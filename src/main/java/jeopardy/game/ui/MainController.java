@@ -15,8 +15,12 @@ import java.awt.event.WindowEvent;
  * Created by XLIII on 2015-12-10.
  */
 public class MainController {
+
+    private static String COLOR_TAG = "<font color=#B12625>%s</font>";
+
     private JFrame frame;
     private JLabel header;
+    private JLabel warningLabel;
     private ConfigPanel configPanel;
     private GamePanel gamePanel;
 
@@ -30,7 +34,7 @@ public class MainController {
         frame = new JFrame("Jeopardy Bot");
         frame.setSize(400, 400);
         frame.setResizable(false);
-        frame.setLayout(new GridLayout(2, 1));
+        frame.setLayout(new GridLayout(3, 1));
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -41,9 +45,12 @@ public class MainController {
 
         header = new JLabel("Jeopardy Skype bot by XLIII", JLabel.CENTER);
 
+        warningLabel = new JLabel("", JLabel.CENTER);
+
         configPanel = new ConfigPanel(this);
 
         frame.add(header);
+        frame.add(warningLabel);
         frame.add(configPanel);
         frame.setVisible(true);
     }
@@ -93,6 +100,10 @@ public class MainController {
 
     public void syncScore() {
         header.setText(Utils.wrapAndCenter(game.getPrintScoresString(true, true)));
+    }
+
+    public void setWarningText(String text) {
+        warningLabel.setText(Utils.wrapAndCenter(String.format(COLOR_TAG, text)));
     }
 }
 
