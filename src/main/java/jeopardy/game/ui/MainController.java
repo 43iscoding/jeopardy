@@ -1,6 +1,6 @@
 package jeopardy.game.ui;
 
-import jeopardy.Bot;
+import jeopardy.game.bot.SkypeBot;
 import jeopardy.Launcher;
 import jeopardy.game.Config;
 import jeopardy.game.Game;
@@ -66,7 +66,7 @@ public class MainController {
         game.setController(this);
         gamePanel = new GamePanel(game, this);
         game.setPanel(gamePanel);
-        game.setBot(new Bot(Launcher.PLAYERS, game));
+        game.setBot(new SkypeBot(Launcher.PLAYERS));
         header.setText(game.getConfigStr());
         System.out.println(game.getConfigStr());
         if (Config.TUTORIAL_ENABLED) {

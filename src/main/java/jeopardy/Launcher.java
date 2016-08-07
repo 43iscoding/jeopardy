@@ -23,9 +23,9 @@ public class Launcher {
         //put("sara_michael_pb", "KateiChg"); PLAYED
         //put("armen66642", "Армен");
         //put("sergleo_21213", "Сергей");
-        put("ihtiandrei", "IhtiAndrei");
-        put("phantomscadman", "Phantom");
-        put("dark_doctor", "Dark Doctor");
+        //put("ihtiandrei", "IhtiAndrei");
+        //put("phantomscadman", "Phantom");
+        //put("dark_doctor", "Dark Doctor");
         //put("bogps123", "Oleg");
         //put("feakalakvendi", "Alexandr");
         //put("leinaps", "Leinaps");
@@ -36,9 +36,9 @@ public class Launcher {
 
         //MISC
 
-        //put("lotivecsorks", "VitBuk"); //PLAYED
-        //put("arsenicum91", "Shurara"); //PLAYED
-        //put("angel_eyes57", "Dashutka"); //PLAYED
+        put("lotivecsorks", "VitBuk"); //PLAYED
+        put("arsenicum91", "Shurara"); //PLAYED
+        put("angel_eyes57", "Dashutka"); //PLAYED
 
 
     }};

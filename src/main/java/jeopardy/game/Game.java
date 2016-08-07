@@ -1,7 +1,7 @@
 package jeopardy.game;
 
-import jeopardy.Bot;
 import jeopardy.Saves;
+import jeopardy.game.bot.Bot;
 import jeopardy.game.ui.GamePanel;
 import jeopardy.game.ui.MainController;
 import jeopardy.game.ui.MainDisplay;
@@ -177,6 +177,8 @@ public class Game {
 
     public void setBot(Bot bot) {
         this.bot = bot;
+        bot.registerUsers(this);
+        bot.registerListener(this);
     }
 
     public void receiveMessage(String name, String message) {
