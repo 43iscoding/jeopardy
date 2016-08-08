@@ -9,8 +9,18 @@ import java.io.IOException;
  */
 public class Utils {
 
+    private static final String COLOR_TAG = "<font color=%s>%s</font>";
+
     private static final String fontPath = "src/main/resources/fonts/swiss911.ttf";
     private static boolean fontInitialized;
+
+    public static String htmlColored(String text, String color) {
+        return String.format(COLOR_TAG, color, text);
+    }
+
+    public static String toHex(Color color) {
+        return String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
+    }
 
     public static Font getJeopardyFont(int style, float size) {
         Font font = null;

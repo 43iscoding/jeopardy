@@ -5,8 +5,11 @@ import jeopardy.game.bot.Bot;
 import jeopardy.game.ui.GamePanel;
 import jeopardy.game.ui.MainController;
 import jeopardy.game.ui.MainDisplay;
+import jeopardy.game.ui.Utils;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by XLIII on 2015-12-10.
@@ -15,9 +18,13 @@ public class Game {
 
     private static Game instance;
 
+    private final Color highlightCurrentPlayer = new Color(177, 34, 60);
+
     private LinkedList<Round> rounds = new LinkedList<>();
     private Map<Integer, Map<String, List<Round>>> roundsBySection = new HashMap<>();
     private Round currentRound;
+
+    private Player lastCorrect;
 
     private int currentSection = 1;
 
@@ -77,7 +84,7 @@ public class Game {
 
     private void insertRoundsToSectionTheme(int section, String theme, List<Round> rounds) {
         if (!roundsBySection.containsKey(section)) {
-            roundsBySection.put(section, new HashMap<String, List<Round>>());
+            roundsBySection.put(section, new HashMap<>());
         }
 
         roundsBySection.get(section).put(theme, rounds);
@@ -90,7 +97,9 @@ public class Game {
         players.put(name, player);
         panel.registerPlayer(player);
 
+        lastCorrect = player;
         System.out.println("Player" + player.getId() + ": " + name);
+        controller.syncScore();
     }
 
     public void start() {
@@ -135,7 +144,7 @@ public class Game {
         controller.onGameComplete(winner);
 
         StringBuilder sb = new StringBuilder("Final results:\n");
-        sb.append(getPrintScoresString(true, false));
+        sb.append(getPrintScoresString(false));
         sb.append("Congratulations to ");
         sb.append(winner.getName());
         sb.append("!!!");
@@ -154,23 +163,21 @@ public class Game {
     }
 
     public void printScores() {
-        bot.sendMessage("Current scores: \n" + getPrintScoresString(true, false));
+        bot.sendMessage("Current scores: \n" + getPrintScoresString(false));
     }
 
-    public String getPrintScoresString(boolean result, boolean html) {
+    public String getPrintScoresString(boolean html) {
         String delim = html ? "<br>" : "\n";
         StringBuilder sb = new StringBuilder();
-        if (result) {
-            List<Player> list = new ArrayList<Player>(players.values());
-            Collections.sort(list);
-            for (int i = 0; i < list.size(); i++) {
-                Player player = list.get(i);
-                sb.append(i + 1).append(") ").append(player).append(delim);
+        List<Player> list = new ArrayList<>(players.values());
+        Collections.sort(list);
+        for (int i = 0; i < list.size(); i++) {
+            Player player = list.get(i);
+            String playerString = player.toString();
+            if (player.equals(lastCorrect) && html) {
+                playerString = Utils.htmlColored(playerString, Utils.toHex(highlightCurrentPlayer));
             }
-        } else {
-            for (Player player : players.values()) {
-                sb.append(player).append(delim);
-            }
+            sb.append(i + 1).append(") ").append(playerString).append(delim);
         }
         return sb.toString();
     }
@@ -238,6 +245,7 @@ public class Game {
         Saves.saveScore(player);
         panel.onCorrect(player);
         bot.sendMessage(player.getScoreMessage());
+        lastCorrect = player;
         endRound();
     }
 
@@ -329,5 +337,6 @@ public class Game {
 
     private void printSelectionPanel() {
         bot.sendMessage(mainDisplay.printSelectionPanel());
+        bot.sendMessage(lastCorrect.getName() + ", please choose a question.");
     }
 }

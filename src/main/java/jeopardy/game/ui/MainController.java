@@ -94,7 +94,7 @@ public class MainController {
         gamePanel.setVisible(false);
         StringBuilder sb = new StringBuilder("Congratulations to ").append(winner.getName()).append("!");
         sb.append("<br>").append("<br>");
-        sb.append(game.getPrintScoresString(true, true));
+        sb.append(game.getPrintScoresString(true));
         header.setText(Utils.wrapAndCenter(sb.toString()));
     }
 
@@ -111,7 +111,7 @@ public class MainController {
     }
 
     public void syncScore() {
-        header.setText(Utils.wrapAndCenter(game.getPrintScoresString(true, true)));
+        header.setText(Utils.wrapAndCenter(game.getPrintScoresString(true)));
     }
 
     public void setWarningText(String text) {

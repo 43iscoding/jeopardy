@@ -8,8 +8,6 @@ import jeopardy.game.Round;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ public class GamePanel extends JPanel {
 
     private Sound currentSong = new Sound();
 
-    private Map<Player, PlayerPanel> playerPanels = new HashMap<Player, PlayerPanel>();
+    private Map<Player, PlayerPanel> playerPanels = new HashMap<>();
 
     public GamePanel(final Game game, MainController controller) {
         super();
@@ -50,51 +48,41 @@ public class GamePanel extends JPanel {
         playerLabel = new JLabel("", JLabel.CENTER);
 
         printScoresBtn = new JButton("Print Scores");
-        printScoresBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                game.printScores();
-                printScoresBtn.setEnabled(false);
-            }
+        printScoresBtn.addActionListener(e -> {
+            game.printScores();
+            printScoresBtn.setEnabled(false);
         });
 
         endBtn = new JButton("End");
-        endBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                endBtn.setEnabled(false);
-                game.endRound();
+        endBtn.addActionListener(e -> {
+            endBtn.setEnabled(false);
+            game.endRound();
 
-                if (Config.MUSIC_MODE) {
-                    currentSong.stop();
-                }
+            if (Config.MUSIC_MODE) {
+                currentSong.stop();
             }
         });
 
         nextBtn = new JButton("Next");
-        nextBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                resetPlayers();
-                if (Config.MANUAL_SELECTION) {
-                    nextBtn.setEnabled(false);
-                    game.showSelectionPanel();
-                } else {
-                    game.nextRound();
-                }
+        nextBtn.addActionListener(e -> {
+            resetPlayers();
+            if (Config.MANUAL_SELECTION) {
+                nextBtn.setEnabled(false);
+                game.showSelectionPanel();
+            } else {
+                game.nextRound();
             }
         });
 
         correctBtn = new JButton("Correct");
-        correctBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                game.correct();
-            }
+        correctBtn.addActionListener(e -> {
+            game.correct();
         });
 
         incorrectBtn = new JButton("Incorrect");
-        incorrectBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                game.incorrect();
-                //Sound.playSound("Wrong", -10f);
-            }
+        incorrectBtn.addActionListener(e -> {
+            game.incorrect();
+            //Sound.playSound("Wrong", -10f);
         });
         onNewRound(null);
 
