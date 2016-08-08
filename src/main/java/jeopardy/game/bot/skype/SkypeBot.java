@@ -1,9 +1,10 @@
-package jeopardy.game.bot;
+package jeopardy.game.bot.skype;
 
 import com.skype.*;
 import jeopardy.Saves;
 import jeopardy.game.Config;
 import jeopardy.game.Game;
+import jeopardy.game.bot.AbstractBot;
 
 import java.util.Map;
 

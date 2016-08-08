@@ -1,6 +1,6 @@
 package jeopardy.game.ui;
 
-import jeopardy.game.bot.SkypeBot;
+import jeopardy.game.bot.skype.SkypeBot;
 import jeopardy.Launcher;
 import jeopardy.game.Config;
 import jeopardy.game.Game;
