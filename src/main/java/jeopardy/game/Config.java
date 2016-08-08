@@ -1,5 +1,7 @@
 package jeopardy.game;
 
+import jeopardy.game.bot.BotType;
+
 /**
  * Created by XLIII on 2015-12-12.
  */
@@ -23,9 +25,11 @@ public class Config {
 
     public static final boolean ROUND_MULTIPLICATOR = true;
 
-    public static final boolean USE_VIRTUAL_AUDIO = false;
+    public static final boolean USE_VIRTUAL_AUDIO = true;
 
-    public static final boolean MUTE_BOT = true;
+    public static final boolean MUTE_BOT = false;
 
-    public static final boolean BEAUTIFY = false; //Welcome messages, chat topic etc.
+    public static final boolean BEAUTIFY = true; //Welcome messages, chat topic etc.
+
+    public static final BotType BOT = BotType.DISCORD;
 }

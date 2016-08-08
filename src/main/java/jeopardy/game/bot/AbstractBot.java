@@ -14,15 +14,17 @@ import java.util.Map;
  */
 public abstract class AbstractBot implements Bot {
 
-    private Map<String, String> users;
+    private final Map<String, String> users;
+    protected final Game game;
 
-    protected AbstractBot(Map<String, String> users) {
+    protected AbstractBot(Game game, Map<String, String> users) {
         this.users = users;
+        this.game = game;
     }
 
     public void sendMessage(Object message) {
         if (Config.LOG_BOT_MESSAGES) {
-            System.out.println("Bot: \n" + message);
+            System.out.println("Bot: \n" + cleanFormatting(message.toString()));
         }
 
         if (Config.MUTE_BOT) return;
@@ -30,7 +32,7 @@ public abstract class AbstractBot implements Bot {
         sendMessage(message.toString());
     }
 
-    public void registerUsers(final Game game) {
+    protected void registerUsers() {
         Map<String, String> realUsers = new HashMap<>();
         for (String userId : users.keySet()) {
             if (!userExists(userId)) {
@@ -50,6 +52,10 @@ public abstract class AbstractBot implements Bot {
             }
             game.registerPlayer(realUsers.get(id));
         }
+    }
+
+    protected String cleanFormatting(String message) {
+        return message;
     }
 
     protected abstract void sendMessage(String message);

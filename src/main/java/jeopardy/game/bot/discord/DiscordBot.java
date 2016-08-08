@@ -9,12 +9,15 @@ import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MessageBuilder;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,19 +27,31 @@ import java.util.Map;
  */
 public class DiscordBot extends AbstractBot {
 
+    public static final String TAG_CODE_BLOCK = "```";
+
     private IDiscordClient client;
     private IChannel jeopardyChannel;
 
     private final String jeopardyChannelID = "212184742345441280";
 
+    private Queue<String> onReadyMessages = new LinkedList<>();
 
-    public DiscordBot(Map<String, String> users) {
-        super(users);
+
+    public DiscordBot(Game game, Map<String, String> users) {
+        super(game, users);
         try {
             client = new ClientBuilder().withToken("MjEyMTc0MTc5MDMyNjI5MjQ4.CooD4w.WQjEnK7N2qNC4JAEGbnDZaHKvVo").login();
             client.getDispatcher().registerListener((IListener<ReadyEvent>)event -> {
                 jeopardyChannel = client.getChannelByID(jeopardyChannelID);
+                registerUsers();
+                for (String message : onReadyMessages) {
+                    sendMessage(message);
+                }
                 System.out.println("Discord Bot Connected");
+            });
+            client.getDispatcher().registerListener((IListener<MessageReceivedEvent>) event -> {
+                IMessage message = event.getMessage();
+                game.receiveMessage(message.getAuthor().getName(), message.getContent());
             });
         } catch (DiscordException e) {
             e.printStackTrace();
@@ -46,6 +61,11 @@ public class DiscordBot extends AbstractBot {
     @Override
     protected void sendMessage(String message) {
         try {
+            if (!client.isReady()) {
+                onReadyMessages.offer(message);
+                return;
+            }
+
             new MessageBuilder(client).withChannel(jeopardyChannel).withContent(message).build();
         } catch (RateLimitException | DiscordException | MissingPermissionsException e) {
             e.printStackTrace();
@@ -54,20 +74,19 @@ public class DiscordBot extends AbstractBot {
 
     @Override
     protected boolean userExists(String userId) {
-
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        for (IUser user : jeopardyChannel.getUsersHere()) {
+            if (user.getName().equals(userId)) return true;
+        }
+        return false;
     }
 
     @Override
     protected String updateName(String userId, String displayName) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return displayName;
     }
 
     @Override
-    public void registerListener(Game game) {
-        client.getDispatcher().registerListener((IListener<MessageReceivedEvent>) event -> {
-            IMessage message = event.getMessage();
-            game.receiveMessage(message.getAuthor().getName(), message.getContent());
-        });
+    protected String cleanFormatting(String message) {
+        return message.replace(TAG_CODE_BLOCK, "");
     }
 }

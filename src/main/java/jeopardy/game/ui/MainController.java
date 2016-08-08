@@ -1,10 +1,11 @@
 package jeopardy.game.ui;
 
-import jeopardy.game.bot.skype.SkypeBot;
 import jeopardy.Launcher;
 import jeopardy.game.Config;
 import jeopardy.game.Game;
 import jeopardy.game.Player;
+import jeopardy.game.bot.discord.DiscordBot;
+import jeopardy.game.bot.skype.SkypeBot;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +67,7 @@ public class MainController {
         game.setController(this);
         gamePanel = new GamePanel(game, this);
         game.setPanel(gamePanel);
-        game.setBot(new SkypeBot(Launcher.PLAYERS));
+        initBot();
         header.setText(game.getConfigStr());
         System.out.println(game.getConfigStr());
         if (Config.TUTORIAL_ENABLED) {
@@ -75,6 +76,17 @@ public class MainController {
 
         if (Config.BEAUTIFY) {
             game.sendMessage("Welcome to Jeopardy!");
+        }
+    }
+
+    private void initBot() {
+        switch (Config.BOT) {
+            case DISCORD:
+                game.setBot(new DiscordBot(game, Launcher.DISCORD_PLAYERS));
+                break;
+            case SKYPE:
+                game.setBot(new SkypeBot(game, Launcher.SKYPE_PLAYERS));
+                break;
         }
     }
 

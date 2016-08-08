@@ -15,8 +15,8 @@ public class SkypeBot extends AbstractBot {
 
     private Chat chat;
 
-    public SkypeBot(Map<String, String> users) {
-        super(users);
+    public SkypeBot(Game game, Map<String, String> users) {
+        super(game, users);
         String chatId = Saves.retrieveChatId(users);
         if (Config.FORCE_NEW_CHAT || chatId == null) {
             chat = createGroupChatWith(users.keySet().toArray(new String[users.size()]));
@@ -32,6 +32,9 @@ public class SkypeBot extends AbstractBot {
             System.out.println("Chat not created. Abort");
             return;
         }
+
+        registerListener();
+        registerUsers();
 
         try {
             if (users.size() > 1 && Config.BEAUTIFY) {
@@ -89,7 +92,7 @@ public class SkypeBot extends AbstractBot {
         return displayName;
     }
 
-    public void registerListener(final Game game) {
+    private void registerListener() {
         try {
             Skype.addChatMessageListener(new ChatMessageListener() {
                 public void chatMessageReceived(ChatMessage message) throws SkypeException {

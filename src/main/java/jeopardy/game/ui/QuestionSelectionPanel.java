@@ -3,6 +3,8 @@ package jeopardy.game.ui;
 import jeopardy.game.Config;
 import jeopardy.game.Game;
 import jeopardy.game.Round;
+import jeopardy.game.bot.BotType;
+import jeopardy.game.bot.discord.DiscordBot;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -129,6 +131,10 @@ public class QuestionSelectionPanel extends JPanel {
             } else {
                 sb.append("|");
             }
+        }
+        if (Config.BOT == BotType.DISCORD) {
+            //Force code block mode
+            return DiscordBot.TAG_CODE_BLOCK + sb.toString() + DiscordBot.TAG_CODE_BLOCK;
         }
         return sb.toString();
     }

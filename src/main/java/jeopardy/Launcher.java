@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class Launcher {
 
-    public static Map<String, String> PLAYERS = new LinkedHashMap<String, String>() {{
+    public static Map<String, String> SKYPE_PLAYERS = new LinkedHashMap<String, String>() {{
         //STUPID BOTS
         //put("miss.gf54", "ZeGoattt");
         //put("miss.gf53", "BizBony");
@@ -36,11 +36,37 @@ public class Launcher {
 
         //MISC
 
-        put("lotivecsorks", "VitBuk"); //PLAYED
-        put("arsenicum91", "Shurara"); //PLAYED
-        put("angel_eyes57", "Dashutka"); //PLAYED
+        //put("lotivecsorks", "VitBuk"); //PLAYED
+        //put("arsenicum91", "Shurara"); //PLAYED
+        //put("angel_eyes57", "Dashutka"); //PLAYED
+    }};
+
+    public static Map<String, String> DISCORD_PLAYERS = new LinkedHashMap<String, String>() {{
+        //STUPID BOTS
+        //put("miss.gf54", "ZeGoattt");
+        //put("miss.gf53", "BizBony");
+        //put("miss.gf52", "MissCoookiez");
+
+        // KRABE CHAT
+        //put("sara_michael_pb", "KateiChg"); PLAYED
+        //put("armen66642", "Армен");
+        //put("sergleo_21213", "Сергей");
+        //put("ihtiandrei", "IhtiAndrei");
+        //put("phantomscadman", "Phantom");
+        //put("dark_doctor", "Dark Doctor");
+        //put("bogps123", "Oleg");
+        //put("feakalakvendi", "Alexandr");
+        //put("leinaps", "Leinaps");
+
+        //put("quietguest123", "Nickolay"); PLAYED
 
 
+
+        //MISC
+
+        put("VitBuk", "VitBuk"); //PLAYED
+        put("XLIII", "XLIII"); //PLAYED
+        //put("angel_eyes57", "Dashutka"); //PLAYED
     }};
 
     public static GameConfig cfg = new GameConfig(

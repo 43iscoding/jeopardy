@@ -177,8 +177,6 @@ public class Game {
 
     public void setBot(Bot bot) {
         this.bot = bot;
-        bot.registerUsers(this);
-        bot.registerListener(this);
     }
 
     public void receiveMessage(String name, String message) {
