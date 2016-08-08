@@ -1,6 +1,6 @@
 package jeopardy.game;
 
-import jeopardy.game.ui.Utils;
+import jeopardy.game.utils.Utils;
 
 import java.awt.*;
 

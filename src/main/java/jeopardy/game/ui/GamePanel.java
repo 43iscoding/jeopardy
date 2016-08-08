@@ -5,6 +5,7 @@ import jeopardy.game.Config;
 import jeopardy.game.Game;
 import jeopardy.game.Player;
 import jeopardy.game.Round;
+import jeopardy.game.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;

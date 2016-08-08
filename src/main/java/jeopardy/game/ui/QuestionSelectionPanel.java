@@ -5,6 +5,8 @@ import jeopardy.game.Game;
 import jeopardy.game.Round;
 import jeopardy.game.bot.BotType;
 import jeopardy.game.bot.discord.DiscordBot;
+import jeopardy.game.utils.Colors;
+import jeopardy.game.utils.Utils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -19,10 +21,6 @@ import java.util.Map;
  * Created by XLIII on 2015-12-21.
  */
 public class QuestionSelectionPanel extends JPanel {
-
-    private Color backgroundBlue = new Color(0, 0, 177);
-    private Color themeWhite = new Color(155, 192, 255);
-    private Color roundYellow = new Color(225, 175, 123);
 
     private Game game;
 
@@ -74,9 +72,9 @@ public class QuestionSelectionPanel extends JPanel {
     public JButton createRoundButton(final Round round) {
         final JButton button = new JButton(round.getScore() + "");
         button.setFont(Utils.getJeopardyFont(Font.BOLD, 50));
-        button.setBackground(backgroundBlue);
+        button.setBackground(Colors.backgroundBlue);
         button.setBorder(new LineBorder(Color.black, 4));
-        button.setForeground(roundYellow);
+        button.setForeground(Colors.roundYellow);
         button.setFocusPainted(false);
         button.addActionListener(e -> {
             button.setEnabled(false);
@@ -94,9 +92,9 @@ public class QuestionSelectionPanel extends JPanel {
         JLabel label = new JLabel(Utils.wrapAndCenter(theme), JLabel.CENTER);
         label.setFont(new Font("Century", Font.BOLD, 10));
         label.setFont(Utils.getJeopardyFont(Font.PLAIN, 30));
-        label.setBackground(backgroundBlue);
+        label.setBackground(Colors.backgroundBlue);
         label.setBorder(new LineBorder(Color.black, 4));
-        label.setForeground(themeWhite);
+        label.setForeground(Colors.themeWhite);
         label.setOpaque(true);
         themes.add(label);
         return label;

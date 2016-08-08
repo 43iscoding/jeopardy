@@ -1,4 +1,4 @@
-package jeopardy.game.ui;
+package jeopardy.game.utils;
 
 import java.awt.*;
 import java.io.File;

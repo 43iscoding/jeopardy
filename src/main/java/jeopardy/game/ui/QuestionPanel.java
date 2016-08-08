@@ -1,6 +1,7 @@
 package jeopardy.game.ui;
 
 import jeopardy.game.Round;
+import jeopardy.game.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;

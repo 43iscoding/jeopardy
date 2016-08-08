@@ -21,6 +21,7 @@ public class MainDisplay extends JFrame {
     QuestionPanel questionPanel;
     ResultsPanel resultsPanel;
     ThemesPanel themesPanel;
+    TaskPanel taskPanel;
 
     public MainDisplay(Game game) throws HeadlessException {
         super("Themes");
@@ -28,6 +29,7 @@ public class MainDisplay extends JFrame {
         questionPanel = new QuestionPanel();
         resultsPanel = new ResultsPanel();
         themesPanel = new ThemesPanel();
+        taskPanel = new TaskPanel(game);
 
         init();
     }
@@ -60,6 +62,7 @@ public class MainDisplay extends JFrame {
         add(questionPanel);
         remove(selectionPanel);
         remove(themesPanel);
+        remove(taskPanel);
         setVisible(true);
         questionPanel.setRound(round);
     }
@@ -90,5 +93,12 @@ public class MainDisplay extends JFrame {
 
     public String printSelectionPanel() {
         return selectionPanel.printSelectionPanel();
+    }
+
+    public void showTaskPanel(Round round) {
+        taskPanel.init(round);
+        add(taskPanel);
+        remove(selectionPanel);
+        setVisible(true);
     }
 }

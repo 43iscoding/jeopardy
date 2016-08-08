@@ -5,7 +5,7 @@ import jeopardy.game.bot.Bot;
 import jeopardy.game.ui.GamePanel;
 import jeopardy.game.ui.MainController;
 import jeopardy.game.ui.MainDisplay;
-import jeopardy.game.ui.Utils;
+import jeopardy.game.utils.Utils;
 
 import java.awt.*;
 import java.util.*;
@@ -136,14 +136,14 @@ public class Game {
         if (!themesTouched.contains(round.getTheme())) {
             themesTouched.add(round.getTheme());
             if (round.getTask() != null) {
-                System.out.println(round.getTask());
+                mainDisplay.showTaskPanel(round);
                 return;
             }
         }
-        startRound();
+        startRound(round);
     }
 
-    private void startRound(Round round) {
+    public void startRound(Round round) {
         currentRound = round;
         currentRound.start();
         panel.onNewRound(currentRound);
