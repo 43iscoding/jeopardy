@@ -25,8 +25,11 @@ public class Round {
 
     private boolean started;
 
-    public Round(String theme, int score, RoundConfig cfg) {
-        this.theme = theme;
+    private String task;
+
+    public Round(ThemeConfig theme, int score, RoundConfig cfg) {
+        this.theme = theme.name;
+        this.task = theme.task;
         this.score = score;
         this.answer = cfg.fullName();
         this.path = cfg.getPath();
@@ -144,5 +147,9 @@ public class Round {
 
     public String getPath() {
         return path;
+    }
+
+    public String getTask() {
+        return task;
     }
 }

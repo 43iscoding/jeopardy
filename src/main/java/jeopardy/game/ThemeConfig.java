@@ -11,11 +11,23 @@ import java.util.List;
  */
 public class ThemeConfig {
 
+    private final String containsTask = "Either band or song name contains ";
+
     public String name;
     public List<RoundConfig> rounds;
+    public String task;
 
     public ThemeConfig(String name, RoundConfig... rounds) {
         this.name = name;
         this.rounds = Arrays.asList(rounds);
+    }
+
+    public ThemeConfig task(String task) {
+        this.task = task;
+        return this;
+    }
+
+    public ThemeConfig containsTask(String subject) {
+        return task(containsTask + subject);
     }
 }

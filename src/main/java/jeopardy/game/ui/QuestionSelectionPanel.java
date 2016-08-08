@@ -10,8 +10,6 @@ import org.apache.commons.lang.StringUtils;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -60,7 +58,6 @@ public class QuestionSelectionPanel extends JPanel {
         while (true) {
             for (List<Round> theme : rounds.values()) {
                 if (theme.size() <= index)  {
-                    printSelectionPanel();
                     return;
                 }
 
@@ -81,16 +78,12 @@ public class QuestionSelectionPanel extends JPanel {
         button.setBorder(new LineBorder(Color.black, 4));
         button.setForeground(roundYellow);
         button.setFocusPainted(false);
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                game.startRound(round);
-                button.setEnabled(false);
-                button.setText("");
-                game.showQuestionPanel(round);
-                counter--;
-                printSelectionPanel();
-            }
+        button.addActionListener(e -> {
+            button.setEnabled(false);
+            button.setText("");
+            counter--;
+
+            game.onRoundChosen(round);
         });
         counter++;
         questions.add(button);

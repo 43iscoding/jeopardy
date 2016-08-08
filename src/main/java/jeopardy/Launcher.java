@@ -91,7 +91,7 @@ public class Launcher {
                     new RoundConfig("AC/DC", "Back In Black", "BackInBlack").highlight("Black"),
                     new RoundConfig("Pink Floyd", "Another Brick In The Wall", "PinkFloyd").highlight("Pink"),
                     new RoundConfig("Chris De Burgh", "Lady In Red", "LadyInRed").highlight("Red")
-            ),
+            ).containsTask("a color"),
             new ThemeConfig("DISNEY",
                     new RoundConfig("Frozen", "LetItGo"),
                     new RoundConfig("Lion King", "HakunaMatata"),
@@ -127,14 +127,14 @@ public class Launcher {
                     new RoundConfig("Vanessa Carlton", "Thousand Miles", "ThousandMiles").highlight("Thousand"),
                     new RoundConfig("U2", "With Or Without You", "WithOrWithoutYou").highlight("2"),
                     new RoundConfig("Depeche Mode", "Little Fifteen", "LittleFifteen").highlight("Fifteen")
-            ),
+            ).containsTask("a number"),
             new ThemeConfig("NOTES",
                     new RoundConfig("Journey", "Don't Stop Believing", "DontStop").highlight("DO"),
                     new RoundConfig("Rihanna", "Rehab", "Rehab").highlight("RE"),
                     new RoundConfig("Beatles", "Michelle", "Michelle").highlight("MI"),
                     new RoundConfig("Metallica", "Fade To Black", "FadeToBlack").highlight("FA"),
                     new RoundConfig("Deep Purple", "Soldier Of Fortune", "SoldierOfFortune").highlight("SOL")
-            ),
+            ).containsTask("a note"),
             new ThemeConfig("MOVIES II",
                     new RoundConfig("Harry Potter", "HarryPotter"),
                     new RoundConfig("Titanic", "Titanic"),
@@ -170,14 +170,14 @@ public class Launcher {
                     new RoundConfig("David Guetta feat Sia", "She Wolf", "SheWolf").highlight("Wolf"),
                     new RoundConfig("Katy Perry", "Dark Horse", "DarkHorse").highlight("Horse"),
                     new RoundConfig("Seal", "Kiss From A Rose", "KissFromARose").highlight("Seal")
-            ),
+            ).containsTask("animal"),
             new ThemeConfig("WEATHER",
                     new RoundConfig("AC/DC", "Thunderstruck", "Thunderstruck").highlight("Thunder"),
                     new RoundConfig("Boney M.", "Sunny", "Sunny").highlight("Sunny"),
                     new RoundConfig("A-ha", "Crying In The Rain", "CryingInTheRain").highlight("Rain"),
                     new RoundConfig("30 Seconds To Mars", "Hurricane", "Hurricane").highlight("Hurricane"),
                     new RoundConfig("Darude", "Sandstorm", "Sandstorm").highlight("Sandstorm")
-            )
+            ).containsTask("a weather condition")
     );
 
     public static void main(String[] args) {

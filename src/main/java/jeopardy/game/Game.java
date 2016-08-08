@@ -37,6 +37,8 @@ public class Game {
 
     private Set<Player> tutorial;
 
+    private Set<String> themesTouched = new HashSet<>();
+
     public static int Players() {
         return instance.players.size();
     }
@@ -66,7 +68,7 @@ public class Game {
                 if (Config.ROUND_MULTIPLICATOR) {
                     score *= currentSection;
                 }
-                roundsThisTheme.add(new Round(theme.name, score, round));
+                roundsThisTheme.add(new Round(theme, score, round));
             }
             if (i != Config.ROUND_PER_THEME) {
                 System.out.println("WARNING! Bad round number in theme: " + theme.name + "(" + i + " instead of " + Config.ROUND_PER_THEME + ")");
@@ -130,11 +132,23 @@ public class Game {
         panel.onRoundStarted(currentRound);
     }
 
-    public void startRound(Round round) {
+    public void onRoundChosen(Round round) {
+        if (!themesTouched.contains(round.getTheme())) {
+            themesTouched.add(round.getTheme());
+            if (round.getTask() != null) {
+                System.out.println(round.getTask());
+                return;
+            }
+        }
+        startRound();
+    }
+
+    private void startRound(Round round) {
         currentRound = round;
         currentRound.start();
         panel.onNewRound(currentRound);
         panel.onRoundStarted(currentRound);
+        showQuestionPanel(round);
     }
 
     private void gameComplete() {
@@ -271,7 +285,7 @@ public class Game {
     }
 
     public void startTutorial() {
-        currentRound = new Round("Tutorial", 0, new RoundConfig("Tutorial", "Tutorial"));
+        currentRound = new Round(new ThemeConfig("Tutorial"), 0, new RoundConfig("Tutorial", "Tutorial"));
         currentRound.start();
         tutorial = new HashSet<>(players.values());
         controller.onTutorialStarted();
