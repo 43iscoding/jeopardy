@@ -264,6 +264,7 @@ public class Game {
         panel.onCorrect(player);
         bot.sendMessage(player.getScoreMessage());
         lastCorrect = player;
+        controller.syncScore();
         endRound();
     }
 
