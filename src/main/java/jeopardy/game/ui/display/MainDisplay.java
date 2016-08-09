@@ -48,6 +48,7 @@ public class MainDisplay extends JFrame {
     }
 
     public void showIntroPanel() {
+        introPanel.init();
         add(introPanel);
         setVisible(true);
     }
