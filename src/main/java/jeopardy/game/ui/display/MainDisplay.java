@@ -1,8 +1,9 @@
-package jeopardy.game.ui;
+package jeopardy.game.ui.display;
 
 import jeopardy.game.Game;
 import jeopardy.game.Player;
 import jeopardy.game.Round;
+import jeopardy.game.ui.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +23,7 @@ public class MainDisplay extends JFrame {
     ResultsPanel resultsPanel;
     ThemesPanel themesPanel;
     TaskPanel taskPanel;
+    IntroPanel introPanel;
 
     public MainDisplay(Game game) throws HeadlessException {
         super("Themes");
@@ -30,6 +32,7 @@ public class MainDisplay extends JFrame {
         resultsPanel = new ResultsPanel();
         themesPanel = new ThemesPanel();
         taskPanel = new TaskPanel(game);
+        introPanel = new IntroPanel();
 
         init();
     }
@@ -44,6 +47,11 @@ public class MainDisplay extends JFrame {
         });
     }
 
+    public void showIntroPanel() {
+        add(introPanel);
+        setVisible(true);
+    }
+
     public void startSection(int section, Map<String, List<Round>> rounds) {
         selectionPanel.startSection(rounds);
 
@@ -53,6 +61,7 @@ public class MainDisplay extends JFrame {
     private void showThemesPanel(int section, Collection<String> themes) {
         themesPanel.init(section, themes);
         add(themesPanel);
+        remove(introPanel);
         remove(selectionPanel);
         remove(questionPanel);
         setVisible(true);

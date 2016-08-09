@@ -66,7 +66,7 @@ public class Launcher {
 
         put("VitBuk", "VitBuk"); //PLAYED
         put("XLIII", "XLIII"); //PLAYED
-        //put("angel_eyes57", "Dashutka"); //PLAYED
+        put("overseer", "overseer");
     }};
 
     public static GameConfig cfg = new GameConfig(

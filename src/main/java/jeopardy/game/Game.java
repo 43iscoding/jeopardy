@@ -4,7 +4,7 @@ import jeopardy.Saves;
 import jeopardy.game.bot.Bot;
 import jeopardy.game.ui.GamePanel;
 import jeopardy.game.ui.MainController;
-import jeopardy.game.ui.MainDisplay;
+import jeopardy.game.ui.display.MainDisplay;
 import jeopardy.game.utils.Utils;
 
 import java.awt.*;
@@ -104,9 +104,13 @@ public class Game {
         controller.syncScore();
     }
 
+    public void initDisplay() {
+        mainDisplay = new MainDisplay(this);
+        mainDisplay.showIntroPanel();
+    }
+
     public void start() {
         if (Config.MANUAL_SELECTION) {
-            mainDisplay = new MainDisplay(this);
             mainDisplay.startSection(currentSection, roundsBySection.get(currentSection));
             panel.onThemeList();
         } else {

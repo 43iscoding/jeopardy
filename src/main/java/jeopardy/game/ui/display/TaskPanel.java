@@ -1,4 +1,4 @@
-package jeopardy.game.ui;
+package jeopardy.game.ui.display;
 
 import jeopardy.game.Game;
 import jeopardy.game.Round;

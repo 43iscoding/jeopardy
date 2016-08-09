@@ -78,6 +78,10 @@ public class MainController {
         if (Config.BEAUTIFY) {
             game.sendMessage("Welcome to Jeopardy!");
         }
+
+        if (Config.MANUAL_SELECTION) {
+            game.initDisplay();
+        }
     }
 
     private void initBot() {

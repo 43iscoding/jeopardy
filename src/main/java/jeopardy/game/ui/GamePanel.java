@@ -29,6 +29,7 @@ public class GamePanel extends JPanel {
 
     private JLabel roundLabel;
     private JLabel playerLabel;
+    private JLabel answerLabel;
 
     private Sound currentSong = new Sound();
 
@@ -47,6 +48,8 @@ public class GamePanel extends JPanel {
 
         roundLabel = new JLabel("Round 0", JLabel.CENTER);
         playerLabel = new JLabel("", JLabel.CENTER);
+        answerLabel = new JLabel("", JLabel.CENTER);
+        answerLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
 
         printScoresBtn = new JButton("Print Scores");
         printScoresBtn.addActionListener(e -> {
@@ -88,10 +91,10 @@ public class GamePanel extends JPanel {
         onNewRound(null);
 
         add(new JLabel());
-        add(new JLabel());
+        add(roundLabel);
         add(printScoresBtn);
         add(endBtn);
-        add(roundLabel);
+        add(answerLabel);
         add(nextBtn);
         add(correctBtn);
         add(playerLabel);
@@ -100,18 +103,22 @@ public class GamePanel extends JPanel {
 
     public void setThemeSelection() {
         roundLabel.setText("Selecting theme");
+        answerLabel.setText("");
     }
 
     public void onThemeList() {
         roundLabel.setText("Theme list");
+        answerLabel.setText("");
         nextBtn.setEnabled(true);
     }
 
     private void setRoundText(Round round) {
         if (round != null) {
             roundLabel.setText(Utils.wrapAndCenter(round.toString()));
+            answerLabel.setText(Utils.wrapAndCenter(round.getAnswer()));
         } else {
             roundLabel.setText("");
+            answerLabel.setText("");
         }
     }
 

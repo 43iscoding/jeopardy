@@ -1,4 +1,4 @@
-package jeopardy.game.ui;
+package jeopardy.game.ui.display;
 
 import jeopardy.game.utils.Colors;
 import jeopardy.game.utils.Utils;

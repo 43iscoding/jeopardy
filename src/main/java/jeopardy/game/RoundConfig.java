@@ -1,8 +1,7 @@
 package jeopardy.game;
 
+import jeopardy.game.utils.Colors;
 import jeopardy.game.utils.Utils;
-
-import java.awt.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +11,6 @@ import java.awt.*;
  */
 public class RoundConfig {
 
-    private final Color highlightColor = new Color(225, 175, 83);
     private final String IGNORE_CASE = "(?i)";
 
     private String artist;
@@ -38,9 +36,9 @@ public class RoundConfig {
 
     public RoundConfig highlight(String pattern) {
         if (artist != null) {
-            artist = artist.replaceAll(IGNORE_CASE + pattern, Utils.htmlColored(pattern, Utils.toHex(highlightColor)));
+            artist = artist.replaceAll(IGNORE_CASE + pattern, Utils.htmlColored(pattern, Utils.toHex(Colors.roundYellow)));
         }
-        song = song.replaceAll(IGNORE_CASE + pattern, Utils.htmlColored(pattern, Utils.toHex(highlightColor)));
+        song = song.replaceAll(IGNORE_CASE + pattern, Utils.htmlColored(pattern, Utils.toHex(Colors.roundYellow)));
         return this;
     }
 

@@ -1,4 +1,4 @@
-package jeopardy.game.ui;
+package jeopardy.game.ui.display;
 
 import jeopardy.game.Config;
 import jeopardy.game.Game;
@@ -46,7 +46,9 @@ public class QuestionSelectionPanel extends JPanel {
         return counter == 0;
     }
 
-    void startSection(Map<String, List<Round>> rounds) {
+    public void startSection(Map<String, List<Round>> rounds) {
+        themes.clear();
+        questions.clear();
         removeAll();
         for (String theme : rounds.keySet()) {
             add(createThemeLabel(theme));
