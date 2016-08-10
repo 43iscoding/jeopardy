@@ -5,11 +5,10 @@ import jeopardy.game.bot.Bot;
 import jeopardy.game.ui.GamePanel;
 import jeopardy.game.ui.MainController;
 import jeopardy.game.ui.display.MainDisplay;
+import jeopardy.game.utils.Colors;
 import jeopardy.game.utils.Utils;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 /**
  * Created by XLIII on 2015-12-10.
@@ -17,8 +16,6 @@ import java.util.List;
 public class Game {
 
     private static Game instance;
-
-    private final Color highlightCurrentPlayer = new Color(177, 34, 60);
 
     private LinkedList<Round> rounds = new LinkedList<>();
     private Map<Integer, Map<String, List<Round>>> roundsBySection = new HashMap<>();
@@ -193,7 +190,7 @@ public class Game {
             Player player = list.get(i);
             String playerString = player.toString();
             if (player.equals(lastCorrect) && html) {
-                playerString = Utils.htmlColored(playerString, Utils.toHex(highlightCurrentPlayer));
+                playerString = Utils.htmlColored(playerString, Utils.toHex(Colors.highlightCrimson));
             }
             sb.append(i + 1).append(") ").append(playerString).append(delim);
         }

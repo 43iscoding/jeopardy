@@ -1,6 +1,7 @@
 package jeopardy.game.ui;
 
 import jeopardy.game.Player;
+import jeopardy.game.utils.Colors;
 import jeopardy.game.utils.Utils;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ import java.util.List;
 public class ResultsPanel extends JPanel {
 
     public void init(List<Player> players) {
-        setBackground(new Color(0, 0, 177));
+        setBackground(Colors.backgroundBlue);
         setLayout(new GridLayout(players.size(), 1));
         setSize(950, 500);
 
@@ -33,10 +34,10 @@ public class ResultsPanel extends JPanel {
 
     private Color getColor(int place) {
         switch (place) {
-            case 1: return new Color(255, 215, 0);
-            case 2: return new Color(192, 192, 192);
-            case 3: return new Color(205, 127, 50);
-            default: return new Color(155, 192, 255);
+            case 1: return Colors.gold;
+            case 2: return Colors.silver;
+            case 3: return Colors.bronze;
+            default: return Colors.themeWhite;
         }
     }
 }

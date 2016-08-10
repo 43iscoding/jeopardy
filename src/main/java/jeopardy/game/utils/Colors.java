@@ -14,4 +14,11 @@ public class Colors {
     public static final Color themeWhite = new Color(155, 192, 255);
     public static final Color roundYellow = new Color(225, 175, 123);
     public static final Color answerWhite = new Color(220 ,220, 255);
+
+    public static final Color highlightCrimson = new Color(177, 34, 60);
+
+    public static final Color gold = new Color(255, 215, 0);
+    public static final Color silver = new Color(192, 192, 192);
+    public static final Color bronze = new Color(205, 127, 50);
+
 }
