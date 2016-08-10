@@ -51,6 +51,8 @@ public class DiscordBot extends AbstractBot {
             });
             client.getDispatcher().registerListener((IListener<MessageReceivedEvent>) event -> {
                 IMessage message = event.getMessage();
+                if (!message.getChannel().equals(jeopardyChannel)) return;
+
                 game.receiveMessage(message.getAuthor().getName(), message.getContent());
             });
         } catch (DiscordException e) {
