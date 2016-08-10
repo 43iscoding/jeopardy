@@ -1,4 +1,4 @@
-package jeopardy.game;
+package jeopardy.game.config;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,9 +10,11 @@ import java.util.List;
  * Time: 1:28 AM
  */
 public class GameConfig {
-    List<ThemeConfig> themes;
 
-    public GameConfig(ThemeConfig... themes) {
+    public IntroConfig intro;
+    public List<ThemeConfig> themes;
+
+    public GameConfig(IntroConfig intro, ThemeConfig... themes) {
         this.themes = Arrays.asList(themes);
     }
 }

@@ -1,8 +1,9 @@
 package jeopardy;
 
-import jeopardy.game.GameConfig;
-import jeopardy.game.RoundConfig;
-import jeopardy.game.ThemeConfig;
+import jeopardy.game.config.GameConfig;
+import jeopardy.game.config.IntroConfig;
+import jeopardy.game.config.RoundConfig;
+import jeopardy.game.config.ThemeConfig;
 import jeopardy.game.ui.MainController;
 
 import java.util.LinkedHashMap;
@@ -70,6 +71,7 @@ public class Launcher {
     }};
 
     public static GameConfig cfg = new GameConfig(
+            new IntroConfig("In what year was the national anthem of Latvia written?", 1873),
             //ROUND 1
             new ThemeConfig("CLASSICAL",
                     new RoundConfig("Moonlight Sonata", "MoonlightSonata"), //0
@@ -77,8 +79,8 @@ public class Launcher {
                     new RoundConfig("Rondo Alla Turca (Turkish March)", "TurkishMarch").volume(-4),
                     new RoundConfig("In The Hall Of The Mountain King", "MountainKing").volume(+2),
                     new RoundConfig("Ride Of The Valkyries", "Valkyries").volume(-5)
-            ),
-            new ThemeConfig("TV SERIES",
+            )
+            /*new ThemeConfig("TV SERIES",
                     new RoundConfig("Game Of Thrones", "GameOfThrones").volume(-9),
                     new RoundConfig("Big Bang Theory", "BigBangTheory").volume(-12),
                     new RoundConfig("House MD", "HouseMD").volume(-9),
@@ -177,7 +179,7 @@ public class Launcher {
                     new RoundConfig("A-ha", "Crying In The Rain", "CryingInTheRain").highlight("Rain").volume(-8),
                     new RoundConfig("30 Seconds To Mars", "Hurricane", "Hurricane").highlight("Hurricane").volume(-5),
                     new RoundConfig("Darude", "Sandstorm", "Sandstorm").highlight("Sandstorm").volume(+2)
-            ).containsTask("a weather condition")
+            ).containsTask("a weather condition") */
     );
 
     public static void main(String[] args) {

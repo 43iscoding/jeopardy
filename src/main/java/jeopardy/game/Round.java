@@ -1,5 +1,8 @@
 package jeopardy.game;
 
+import jeopardy.game.config.RoundConfig;
+import jeopardy.game.config.ThemeConfig;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;

@@ -2,6 +2,9 @@ package jeopardy.game;
 
 import jeopardy.Saves;
 import jeopardy.game.bot.Bot;
+import jeopardy.game.config.GameConfig;
+import jeopardy.game.config.RoundConfig;
+import jeopardy.game.config.ThemeConfig;
 import jeopardy.game.ui.GamePanel;
 import jeopardy.game.ui.MainController;
 import jeopardy.game.ui.display.MainDisplay;

@@ -1,4 +1,4 @@
-package jeopardy.game;
+package jeopardy.game.config;
 
 import jeopardy.game.utils.Colors;
 import jeopardy.game.utils.Utils;

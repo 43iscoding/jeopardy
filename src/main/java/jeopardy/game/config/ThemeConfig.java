@@ -1,4 +1,4 @@
-package jeopardy.game;
+package jeopardy.game.config;
 
 import java.util.Arrays;
 import java.util.List;
