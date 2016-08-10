@@ -32,4 +32,6 @@ public class Config {
     public static final boolean BEAUTIFY = true; //Welcome messages, chat topic etc.
 
     public static final BotType BOT = BotType.DISCORD;
+
+    public static final boolean ALLOW_TIE = true;
 }

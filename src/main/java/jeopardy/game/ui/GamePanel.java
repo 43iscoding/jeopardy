@@ -103,7 +103,7 @@ public class GamePanel extends JPanel {
 
     public void setThemeSelection() {
         roundLabel.setText("Selecting theme");
-        answerLabel.setText("");
+        answerLabel.setText(game.lastCorrect.getName());
     }
 
     public void onThemeList() {

@@ -5,10 +5,9 @@ import jeopardy.game.bot.Bot;
 import jeopardy.game.ui.GamePanel;
 import jeopardy.game.ui.MainController;
 import jeopardy.game.ui.display.MainDisplay;
-import jeopardy.game.utils.Colors;
-import jeopardy.game.utils.Utils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by XLIII on 2015-12-10.
@@ -21,7 +20,7 @@ public class Game {
     private Map<Integer, Map<String, List<Round>>> roundsBySection = new HashMap<>();
     private Round currentRound;
 
-    private Player lastCorrect;
+    public Player lastCorrect;
 
     private int currentSection = 1;
 
@@ -155,16 +154,28 @@ public class Game {
     private void gameComplete() {
         System.out.println("Game Complete!");
 
-        Player winner = getWinner();
-        controller.onGameComplete(winner);
+        if (!isTie()) {
+            Player winner = getWinner();
+            controller.onGameComplete(winner);
 
-        StringBuilder sb = new StringBuilder("Final results:\n");
-        sb.append(getPrintScoresString(false));
-        sb.append("Congratulations to ");
-        sb.append(winner.getName());
-        sb.append("!!!");
-        bot.sendMessage(sb.toString());
-        mainDisplay.showResults(sortedPlayers());
+            StringBuilder sb = new StringBuilder("Final results:\n");
+            sb.append(getPrintScoresString(false));
+            sb.append("Congratulations to ");
+            sb.append(winner.getName());
+            sb.append("!!!");
+            bot.sendMessage(sb.toString());
+            mainDisplay.showResults(sortedPlayers());
+        } else if (Config.ALLOW_TIE) {
+            StringBuilder sb = new StringBuilder("Final results:\n");
+            sb.append(getPrintScoresString(false));
+            sb.append("Tie between ");
+            sb.append(getTied().stream().map(Player::getName).collect(Collectors.joining(" & ")));
+            sb.append("!!!");
+            bot.sendMessage(sb.toString());
+            mainDisplay.showResults(sortedPlayers());
+        } else {
+            System.out.println("SHOW FINAL QUESTION");
+        }
     }
 
     private Player getWinner() {
@@ -182,23 +193,60 @@ public class Game {
     }
 
     public String getPrintScoresString(boolean html) {
+        if (players.size() == 0) return "";
+
         String delim = html ? "<br>" : "\n";
         StringBuilder sb = new StringBuilder();
         List<Player> list = new ArrayList<>(players.values());
         Collections.sort(list);
-        for (int i = 0; i < list.size(); i++) {
-            Player player = list.get(i);
-            String playerString = player.toString();
-            if (player.equals(lastCorrect) && html) {
-                playerString = Utils.htmlColored(playerString, Utils.toHex(Colors.highlightCrimson));
-            }
-            sb.append(i + 1).append(") ").append(playerString).append(delim);
+        for (Player player : list) {
+            sb.append(getPlace(player)).append(") ").append(player).append(delim);
         }
         return sb.toString();
     }
 
     public void setBot(Bot bot) {
         this.bot = bot;
+    }
+
+    private int getPlace(Player player) {
+        List<Player> list = new ArrayList<>(players.values());
+        Collections.sort(list);
+        Player lastPlayer = list.get(0);
+        int realPlace = 1;
+        for (int i = 1; i <= list.size(); i++) {
+            Player p = list.get(i - 1);
+            if (p.getScore() != lastPlayer.getScore()) {
+                realPlace = i;
+            }
+
+            lastPlayer = p;
+
+            if (p.equals(player)) {
+                return realPlace;
+            }
+        }
+        System.out.println("Could not determine place for " + player);
+        return -1;
+    }
+
+    private boolean isTie() {
+        return getTied().size() > 1;
+    }
+
+    public Set<Player> getTied() {
+        if (players.size() == 0) return Collections.emptySet();
+        Set<Player> tied = new HashSet<>();
+        List<Player> list = new ArrayList<>(players.values());
+        Collections.sort(list);
+        int tiedScore = list.get(0).getScore();
+        for (Player p : list) {
+            if (p.getScore() == tiedScore) {
+                tied.add(p);
+            }
+        }
+
+        return tied;
     }
 
     public void receiveMessage(String name, String message) {
