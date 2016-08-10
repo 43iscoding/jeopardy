@@ -1,10 +1,12 @@
-package jeopardy.game.ui;
+package jeopardy.game.ui.controller;
 
 import jeopardy.Sound;
 import jeopardy.game.Config;
 import jeopardy.game.Game;
 import jeopardy.game.Player;
 import jeopardy.game.Round;
+import jeopardy.game.ui.MainController;
+import jeopardy.game.ui.PlayerPanel;
 import jeopardy.game.utils.Utils;
 
 import javax.swing.*;

@@ -5,7 +5,7 @@ import jeopardy.game.bot.Bot;
 import jeopardy.game.config.GameConfig;
 import jeopardy.game.config.RoundConfig;
 import jeopardy.game.config.ThemeConfig;
-import jeopardy.game.ui.GamePanel;
+import jeopardy.game.ui.controller.GamePanel;
 import jeopardy.game.ui.MainController;
 import jeopardy.game.ui.display.MainDisplay;
 
@@ -52,8 +52,11 @@ public class Game {
 
     private Map<String, Player> players = new HashMap<>();
 
+    private GameConfig config;
+
     public Game(GameConfig cfg) {
         instance = this;
+        config = cfg;
         int currentSection = 1;
         int currentThemeInSection = 0;
         for (ThemeConfig theme : cfg.themes) {
@@ -105,7 +108,15 @@ public class Game {
 
     public void initDisplay() {
         mainDisplay = new MainDisplay(this);
-        mainDisplay.showIntroPanel();
+        mainDisplay.showLogoPanel();
+    }
+
+    public void introQuestion() {
+        if (Config.MANUAL_SELECTION) {
+            mainDisplay.showIntroPanel(config.intro);
+        } else {
+            start();
+        }
     }
 
     public void start() {

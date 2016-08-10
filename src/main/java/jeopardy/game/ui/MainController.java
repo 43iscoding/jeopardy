@@ -6,6 +6,8 @@ import jeopardy.game.Game;
 import jeopardy.game.Player;
 import jeopardy.game.bot.discord.DiscordBot;
 import jeopardy.game.bot.skype.SkypeBot;
+import jeopardy.game.ui.controller.ConfigPanel;
+import jeopardy.game.ui.controller.GamePanel;
 import jeopardy.game.utils.Utils;
 
 import javax.swing.*;
@@ -60,7 +62,7 @@ public class MainController {
     public void startGame() {
         frame.remove(configPanel);
         frame.add(gamePanel);
-        game.start();
+        game.introQuestion();
     }
 
     public void initialize() {

@@ -43,8 +43,8 @@ public class Utils {
         return font;
     }
 
-    public static String wrapAndCenter(String text) {
-        return "<html><div style=\"text-align: center;\">" + text + "</html>";
+    public static String wrapAndCenter(Object text) {
+        return "<html><div style=\"text-align: center;\">" + text.toString() + "</html>";
     }
 
     public static String unwrap(String text) {

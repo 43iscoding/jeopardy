@@ -15,6 +15,7 @@ public class GameConfig {
     public List<ThemeConfig> themes;
 
     public GameConfig(IntroConfig intro, ThemeConfig... themes) {
+        this.intro = intro;
         this.themes = Arrays.asList(themes);
     }
 }

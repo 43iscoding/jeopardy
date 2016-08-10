@@ -3,7 +3,7 @@ package jeopardy.game.ui.display;
 import jeopardy.game.Game;
 import jeopardy.game.Player;
 import jeopardy.game.Round;
-import jeopardy.game.ui.*;
+import jeopardy.game.config.IntroConfig;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +23,7 @@ public class MainDisplay extends JFrame {
     ResultsPanel resultsPanel;
     ThemesPanel themesPanel;
     TaskPanel taskPanel;
+    LogoPanel logoPanel;
     IntroPanel introPanel;
 
     public MainDisplay(Game game) throws HeadlessException {
@@ -32,6 +33,7 @@ public class MainDisplay extends JFrame {
         resultsPanel = new ResultsPanel();
         themesPanel = new ThemesPanel();
         taskPanel = new TaskPanel(game);
+        logoPanel = new LogoPanel();
         introPanel = new IntroPanel();
 
         init();
@@ -47,8 +49,15 @@ public class MainDisplay extends JFrame {
         });
     }
 
-    public void showIntroPanel() {
-        introPanel.init();
+    public void showLogoPanel() {
+        logoPanel.init();
+        add(logoPanel);
+        setVisible(true);
+    }
+
+    public void showIntroPanel(IntroConfig config) {
+        introPanel.setIntro(config);
+        remove(logoPanel);
         add(introPanel);
         setVisible(true);
     }
@@ -63,6 +72,7 @@ public class MainDisplay extends JFrame {
         themesPanel.init(section, themes);
         add(themesPanel);
         remove(introPanel);
+        remove(logoPanel);
         remove(selectionPanel);
         remove(questionPanel);
         setVisible(true);

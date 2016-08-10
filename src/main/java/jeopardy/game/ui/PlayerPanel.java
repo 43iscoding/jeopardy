@@ -18,12 +18,6 @@ public class PlayerPanel extends JFrame {
     private Player player;
     private JPanel light;
 
-    public PlayerPanel(Player player) throws HeadlessException {
-        super("Player" + player.getId());
-        this.player = player;
-        init();
-    }
-
     public PlayerPanel(Player player, Game game) throws HeadlessException {
         super("Player" + player.getId());
         this.game = game;

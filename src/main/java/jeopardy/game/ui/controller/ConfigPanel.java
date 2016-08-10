@@ -1,4 +1,6 @@
-package jeopardy.game.ui;
+package jeopardy.game.ui.controller;
+
+import jeopardy.game.ui.MainController;
 
 import javax.swing.*;
 import java.awt.*;

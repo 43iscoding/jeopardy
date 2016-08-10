@@ -1,41 +1,52 @@
 package jeopardy.game.ui.display;
 
+import jeopardy.game.config.IntroConfig;
 import jeopardy.game.utils.Colors;
 import jeopardy.game.utils.Utils;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
  * User: User
- * Date: 8/9/16
- * Time: 6:27 PM
+ * Date: 8/10/16
+ * Time: 10:03 PM
  */
 public class IntroPanel extends JPanel {
 
-    public void init() {
+    private JLabel question;
+    private JLabel answer;
+
+    public IntroPanel() {
         setSize(950, 500);
         setBackground(Colors.backgroundBlue);
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(3, 1));
 
-        add(new JLabel());
-        try {
-            BufferedImage tunaImage = ImageIO.read(new File("src/main/resources/images/tuna.png"));
-            JLabel tuna = new JLabel(new ImageIcon(tunaImage.getScaledInstance(240, 110, Image.SCALE_DEFAULT)));
-            add(tuna);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JLabel label = new JLabel("NAME THAT TUNA", JLabel.CENTER);
-        label.setFont(Utils.getJeopardyFont(Font.BOLD, 80));
-        label.setForeground(Colors.roundYellow);
+        JLabel label = new JLabel("INTRO QUESTION", JLabel.CENTER);
+        label.setFont(Utils.getJeopardyFont(Font.PLAIN, 80));
+        label.setForeground(Colors.themeWhite);
         add(label);
-        add(new JLabel());
+
+        question = new JLabel("QUESTION", JLabel.CENTER);
+        question.setFont(Utils.getJeopardyFont(Font.PLAIN, 60));
+        question.setForeground(Colors.roundYellow);
+        add(question);
+
+        answer = new JLabel("ANSWER", JLabel.CENTER);
+        answer.setFont(Utils.getJeopardyFont(Font.BOLD, 70));
+        answer.setForeground(Colors.answerWhite);
+        answer.setVisible(false);
+        add(answer);
+    }
+
+    public void showAnswer() {
+        answer.setVisible(true);
+    }
+
+    public void setIntro(IntroConfig intro) {
+        this.question.setText(Utils.wrapAndCenter(intro.question));
+        this.answer.setText(Utils.wrapAndCenter(intro.answer));
+        this.answer.setVisible(false);
     }
 }
