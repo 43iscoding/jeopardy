@@ -8,12 +8,14 @@ import jeopardy.game.bot.discord.DiscordBot;
 import jeopardy.game.bot.skype.SkypeBot;
 import jeopardy.game.ui.controller.ConfigPanel;
 import jeopardy.game.ui.controller.GamePanel;
+import jeopardy.game.ui.controller.IntroController;
 import jeopardy.game.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Collection;
 
 /**
  * Created by XLIII on 2015-12-10.
@@ -27,6 +29,7 @@ public class MainController {
     private JLabel warningLabel;
     private ConfigPanel configPanel;
     private GamePanel gamePanel;
+    private IntroController introPanel;
 
     private Game game;
 
@@ -53,6 +56,8 @@ public class MainController {
 
         configPanel = new ConfigPanel(this);
 
+        introPanel = new IntroController(this);
+
         frame.add(header);
         frame.add(warningLabel);
         frame.add(configPanel);
@@ -60,9 +65,20 @@ public class MainController {
     }
 
     public void startGame() {
-        frame.remove(configPanel);
-        frame.add(gamePanel);
         game.introQuestion();
+    }
+
+    public void showGame() {
+        frame.remove(introPanel);
+        frame.add(gamePanel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void showIntro(Collection<Player> players) {
+        frame.remove(configPanel);
+        introPanel.init(players);
+        frame.add(introPanel);
     }
 
     public void initialize() {
@@ -123,6 +139,10 @@ public class MainController {
 
     public void setWarningText(String text) {
         warningLabel.setText(Utils.wrapAndCenter(String.format(COLOR_TAG, text)));
+    }
+
+    public void introWon(Player player) {
+        game.introWon(player);
     }
 }
 

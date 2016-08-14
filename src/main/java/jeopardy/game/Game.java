@@ -50,7 +50,7 @@ public class Game {
         bot.sendMessage(message);
     }
 
-    private Map<String, Player> players = new HashMap<>();
+    public Map<String, Player> players = new HashMap<>();
 
     private GameConfig config;
 
@@ -114,15 +114,22 @@ public class Game {
     public void introQuestion() {
         if (Config.MANUAL_SELECTION) {
             mainDisplay.showIntroPanel(config.intro);
+            controller.showIntro(players.values());
         } else {
             start();
         }
+    }
+
+    public void introWon(Player player) {
+        lastCorrect = player;
+        start();
     }
 
     public void start() {
         if (Config.MANUAL_SELECTION) {
             mainDisplay.startSection(currentSection, roundsBySection.get(currentSection));
             panel.onThemeList();
+            controller.showGame();
         } else {
             nextRound();
         }
