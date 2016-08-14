@@ -18,4 +18,14 @@ public class GameConfig {
         this.intro = intro;
         this.themes = Arrays.asList(themes);
     }
+
+    public GameConfig(IntroConfig intro, List<ThemeConfig> themes) {
+        this.intro = intro;
+        this.themes = themes;
+    }
+
+    public GameConfig(IntroConfig intro, List<ThemeConfig> themes, int count) {
+        this.intro = intro;
+        this.themes = themes.subList(0, count);
+    }
 }

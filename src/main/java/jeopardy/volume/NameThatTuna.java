@@ -5,18 +5,18 @@ import jeopardy.game.config.IntroConfig;
 import jeopardy.game.config.RoundConfig;
 import jeopardy.game.config.ThemeConfig;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: User
  * Date: 8/14/16
  * Time: 3:06 PM
  */
-public class NameThatTuna1 extends GameConfig {
+public class NameThatTuna {
 
-    public NameThatTuna1() {
-        super(
-            new IntroConfig("In what year was the national anthem of Latvia written?", 1873),
-            //ROUND 1
+    private static List<ThemeConfig> themes = Arrays.asList(
             new ThemeConfig("CLASSICAL",
                     new RoundConfig("Moonlight Sonata", "MoonlightSonata"), //0
                     new RoundConfig("Flight Of The Bumblebee", "Bumblebee"), //0
@@ -124,5 +124,18 @@ public class NameThatTuna1 extends GameConfig {
                     new RoundConfig("30 Seconds To Mars", "Hurricane", "Hurricane").highlight("Hurricane").volume(-5),
                     new RoundConfig("Darude", "Sandstorm", "Sandstorm").highlight("Sandstorm").volume(+2)
             ).containsTask("a weather condition"));
+
+
+    public static GameConfig oneTheme() {
+        return new GameConfig(
+                new IntroConfig("In what year was the national anthem of Latvia written?", 1873),
+                themes,
+                1);
+    }
+
+    public static GameConfig production() {
+        return new GameConfig(
+                new IntroConfig("In what year was the national anthem of Latvia written?", 1873),
+                themes);
     }
 }

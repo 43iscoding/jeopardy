@@ -2,7 +2,7 @@ package jeopardy;
 
 import jeopardy.game.config.GameConfig;
 import jeopardy.game.ui.MainController;
-import jeopardy.volume.NameThatTuna1;
+import jeopardy.volume.NameThatTuna;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -68,7 +68,7 @@ public class Launcher {
         put("overseer", "overseer");
     }};
 
-    public static GameConfig cfg = new NameThatTuna1();
+    public static GameConfig cfg = NameThatTuna.production();
 
     public static void main(String[] args) {
         new MainController();
