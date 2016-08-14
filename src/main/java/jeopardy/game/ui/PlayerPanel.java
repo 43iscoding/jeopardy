@@ -1,6 +1,6 @@
 package jeopardy.game.ui;
 
-import jeopardy.game.Config;
+import jeopardy.Config;
 import jeopardy.game.Game;
 import jeopardy.game.Player;
 

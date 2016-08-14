@@ -1,4 +1,4 @@
-package jeopardy.game;
+package jeopardy;
 
 import jeopardy.game.bot.BotType;
 

@@ -1,6 +1,6 @@
 package jeopardy.game.ui.display;
 
-import jeopardy.game.Config;
+import jeopardy.Config;
 import jeopardy.game.Game;
 import jeopardy.game.Round;
 import jeopardy.game.bot.BotType;

@@ -1,7 +1,7 @@
 package jeopardy.game.ui;
 
 import jeopardy.Launcher;
-import jeopardy.game.Config;
+import jeopardy.Config;
 import jeopardy.game.Game;
 import jeopardy.game.Player;
 import jeopardy.game.bot.discord.DiscordBot;

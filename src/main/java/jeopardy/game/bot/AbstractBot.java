@@ -1,6 +1,6 @@
 package jeopardy.game.bot;
 
-import jeopardy.game.Config;
+import jeopardy.Config;
 import jeopardy.game.Game;
 
 import java.util.HashMap;

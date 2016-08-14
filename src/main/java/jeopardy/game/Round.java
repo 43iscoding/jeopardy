@@ -1,5 +1,6 @@
 package jeopardy.game;
 
+import jeopardy.Config;
 import jeopardy.game.config.RoundConfig;
 import jeopardy.game.config.ThemeConfig;
 

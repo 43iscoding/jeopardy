@@ -1,5 +1,6 @@
 package jeopardy.game;
 
+import jeopardy.Config;
 import jeopardy.Saves;
 import jeopardy.game.bot.Bot;
 import jeopardy.game.config.GameConfig;

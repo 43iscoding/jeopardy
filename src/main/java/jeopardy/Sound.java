@@ -1,6 +1,5 @@
 package jeopardy;
 
-import jeopardy.game.Config;
 import jeopardy.game.Round;
 
 import javax.sound.sampled.*;
