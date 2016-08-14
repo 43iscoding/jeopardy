@@ -231,8 +231,8 @@ public class Game {
         this.bot = bot;
     }
 
-    private int getPlace(Player player) {
-        List<Player> list = new ArrayList<>(players.values());
+    public static int getPlace(Player player) {
+        List<Player> list = new ArrayList<>(instance.players.values());
         Collections.sort(list);
         Player lastPlayer = list.get(0);
         int realPlace = 1;

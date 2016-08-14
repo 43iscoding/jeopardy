@@ -1,5 +1,6 @@
 package jeopardy.game.ui.display;
 
+import jeopardy.game.Game;
 import jeopardy.game.Player;
 import jeopardy.game.utils.Colors;
 import jeopardy.game.utils.Utils;
@@ -18,8 +19,8 @@ public class ResultsPanel extends JPanel {
         setLayout(new GridLayout(players.size(), 1));
         setSize(950, 500);
 
-        for (int i = 0; i < players.size(); i++) {
-            add(createPlayerLabel(players.get(i), i + 1));
+        for (Player player : players) {
+            add(createPlayerLabel(player, Game.getPlace(player)));
         }
         setVisible(true);
     }
