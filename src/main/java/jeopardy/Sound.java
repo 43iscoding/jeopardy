@@ -43,7 +43,7 @@ public class Sound {
     }
 
     public static Sound playMusic(Round round, float db) {
-        return playSound("music/" + round.toMusicPath(), db);
+        return playSound("music/" + round.musicPath(), db);
     }
 
     public static void playSound(String sound) {

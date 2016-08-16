@@ -68,7 +68,7 @@ public class Launcher {
         put("overseer", "overseer");
     }};
 
-    public static GameConfig cfg = NameThatTuna.production();
+    public static GameConfig cfg = NameThatTuna.themes(10,11,12,13,14);
 
     public static void main(String[] args) {
         new MainController();

@@ -18,6 +18,8 @@ public class RoundConfig {
     private String path;
     private float volume;
 
+    private String event;
+
     public RoundConfig(String song, String path) {
         this.song = song;
         this.path = path;
@@ -42,6 +44,11 @@ public class RoundConfig {
         return this;
     }
 
+    public RoundConfig event(String event) {
+        this.event = event;
+        return this;
+    }
+
     public String fullName() {
         String a;
         if (artist == null || artist.isEmpty()) {
@@ -58,5 +65,9 @@ public class RoundConfig {
 
     public float getVolume() {
         return volume;
+    }
+
+    public String getEvent() {
+        return event;
     }
 }

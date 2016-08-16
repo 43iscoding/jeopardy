@@ -3,6 +3,7 @@ package jeopardy.game;
 import jeopardy.Config;
 import jeopardy.game.config.RoundConfig;
 import jeopardy.game.config.ThemeConfig;
+import networking.Network;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -15,11 +16,9 @@ import java.util.Set;
 public class Round {
 
     private String theme;
-    private String answer;
-    private String path;
     private int score;
 
-    private float volume;
+    private RoundConfig cfg;
 
     private Queue<Player> pending = new LinkedList<>();
     private Set<Player> wrong = new HashSet<>();
@@ -35,9 +34,7 @@ public class Round {
         this.theme = theme.name;
         this.task = theme.task;
         this.score = score;
-        this.answer = cfg.fullName();
-        this.path = cfg.getPath();
-        this.volume = cfg.getVolume();
+        this.cfg = cfg;
     }
 
     public boolean ended() {
@@ -50,6 +47,9 @@ public class Round {
 
     public void start() {
         started = true;
+        if (cfg.getEvent() != null) {
+            Network.sendMessage(cfg.getEvent());
+        }
     }
 
     public void end() {
@@ -57,7 +57,7 @@ public class Round {
     }
 
     public float getVolume() {
-        return volume;
+        return cfg.getVolume();
     }
 
     public boolean offer(Player player) {
@@ -102,8 +102,8 @@ public class Round {
         return player;
     }
 
-    public String toMusicPath() {
-        return path;
+    public String musicPath() {
+        return cfg.getPath();
     }
 
     public Player pendingPlayer() {
@@ -146,11 +146,7 @@ public class Round {
     }
 
     public String getAnswer() {
-        return answer;
-    }
-
-    public String getPath() {
-        return path;
+        return cfg.fullName();
     }
 
     public String getTask() {

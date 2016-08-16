@@ -1,5 +1,6 @@
 package jeopardy.game.config;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,5 +28,13 @@ public class GameConfig {
     public GameConfig(IntroConfig intro, List<ThemeConfig> themes, int count) {
         this.intro = intro;
         this.themes = themes.subList(0, count);
+    }
+
+    public GameConfig(IntroConfig intro, List<ThemeConfig> themes, int ... indices) {
+        this.intro = intro;
+        this.themes = new ArrayList<>();
+        for (int i : indices) {
+            this.themes.add(themes.get(i));
+        }
     }
 }

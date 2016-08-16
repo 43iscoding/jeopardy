@@ -122,20 +122,20 @@ public class NameThatTuna {
                     new RoundConfig("Boney M.", "Sunny", "Sunny").highlight("Sunny").volume(-12),
                     new RoundConfig("A-ha", "Crying In The Rain", "CryingInTheRain").highlight("Rain").volume(-8),
                     new RoundConfig("30 Seconds To Mars", "Hurricane", "Hurricane").highlight("Hurricane").volume(-5),
-                    new RoundConfig("Darude", "Sandstorm", "Sandstorm").highlight("Sandstorm").volume(+2)
+                    new RoundConfig("Darude", "Sandstorm", "Sandstorm").highlight("Sandstorm").volume(+2).event("LaunchSandstorm")
             ).containsTask("a weather condition"));
 
+    private static IntroConfig INTRO = new IntroConfig("In what year was the national anthem of Latvia written?", 1873);
 
     public static GameConfig oneTheme() {
-        return new GameConfig(
-                new IntroConfig("In what year was the national anthem of Latvia written?", 1873),
-                themes,
-                1);
+        return new GameConfig(INTRO, themes, 1);
+    }
+
+    public static GameConfig themes(int ... indices) {
+        return new GameConfig(INTRO, themes, indices);
     }
 
     public static GameConfig production() {
-        return new GameConfig(
-                new IntroConfig("In what year was the national anthem of Latvia written?", 1873),
-                themes);
+        return new GameConfig(INTRO, themes);
     }
 }
