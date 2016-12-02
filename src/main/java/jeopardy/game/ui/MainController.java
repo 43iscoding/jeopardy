@@ -46,7 +46,9 @@ public class MainController {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                game.cleanup();
+                if (game != null) {
+                    game.cleanup();
+                }
                 System.exit(0);
             }
         });

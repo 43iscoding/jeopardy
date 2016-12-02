@@ -136,7 +136,7 @@ public class GamePanel extends JPanel {
     }
 
     private void initCurrentSong(Round round) {
-        currentSong = Sound.playMusic(round);
+        currentSong = Sound.playMusic(round, currentSong);
     }
 
     public void onRoundEnded(boolean last) {

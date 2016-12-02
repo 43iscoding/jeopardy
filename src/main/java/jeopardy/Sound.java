@@ -13,7 +13,9 @@ public class Sound {
 
     private static Mixer.Info mixer;
 
-    private Clip clip;
+    private static Clip clip;
+    private static long position = 0;
+    private static Round currentRound;
 
     public Sound() {
     }
@@ -38,11 +40,17 @@ public class Sound {
         }
     }
 
-    public static Sound playMusic(Round round) {
+    public static Sound playMusic(Round round, Sound current) {
+        if (round.equals(currentRound) && clip != null) {
+            play();
+            return current;
+        }
+        position = 0;
+        currentRound = round;
         return playMusic(round, round.getVolume());
     }
 
-    public static Sound playMusic(Round round, float db) {
+    private static Sound playMusic(Round round, float db) {
         return playSound("music/" + round.musicPath(), db);
     }
 
@@ -53,7 +61,7 @@ public class Sound {
     public static Sound playSound(String sound, float db) {
         File file = new File("src/main/resources/" + sound + ".wav");
         if (!file.exists()) {
-            System.out.println("No sound found at " + sound);
+            System.err.println("No sound found at " + sound);
             return new Sound();
         }
 
@@ -68,15 +76,17 @@ public class Sound {
         return s;
     }
 
-    public void play() {
+    public static void play() {
         if (clip == null) return;
 
+        clip.setMicrosecondPosition(position);
         clip.start();
     }
 
-    public void stop(){
+    public static void stop(){
         if (clip == null) return;
 
+        position = clip.getMicrosecondPosition();
         clip.stop();
     }
 }
