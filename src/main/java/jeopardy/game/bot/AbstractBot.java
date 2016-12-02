@@ -2,6 +2,7 @@ package jeopardy.game.bot;
 
 import jeopardy.Config;
 import jeopardy.game.Game;
+import jeopardy.game.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,12 +15,27 @@ import java.util.Map;
  */
 public abstract class AbstractBot implements Bot {
 
-    private final Map<String, String> users;
+    protected final Map<String, String> users;
     protected final Game game;
 
     protected AbstractBot(Game game, Map<String, String> users) {
-        this.users = users;
         this.game = game;
+        this.users = users;
+    }
+
+    protected AbstractBot(Game game) {
+        this.game = game;
+        this.users = new HashMap<>();
+    }
+
+    public void cleanup() {
+        System.out.println("Cleanup");
+    }
+
+    @Override
+    public void updatePlayerName(Player player) {
+        String baseName = users.get(player.getUserId());
+        updateName(player.getUserId(), baseName + " (" + player.getScore() + ")");
     }
 
     public void sendMessage(Object message) {
@@ -50,7 +66,7 @@ public abstract class AbstractBot implements Bot {
                 System.out.println("No real user found with id: " + id);
                 continue;
             }
-            game.registerPlayer(realUsers.get(id));
+            game.registerPlayer(id, realUsers.get(id));
         }
     }
 
@@ -62,6 +78,6 @@ public abstract class AbstractBot implements Bot {
 
     protected abstract boolean userExists(String userId);
 
-    protected abstract String updateName(String userId, String displayName);
+    public abstract String updateName(String userId, String displayName);
 
 }

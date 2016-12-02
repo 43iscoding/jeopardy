@@ -46,6 +46,7 @@ public class MainController {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                game.cleanup();
                 System.exit(0);
             }
         });
@@ -105,7 +106,7 @@ public class MainController {
     private void initBot() {
         switch (Config.BOT) {
             case DISCORD:
-                game.setBot(new DiscordBot(game, Launcher.DISCORD_PLAYERS));
+                game.setBot(new DiscordBot(game));
                 break;
             case SKYPE:
                 game.setBot(new SkypeBot(game, Launcher.SKYPE_PLAYERS));

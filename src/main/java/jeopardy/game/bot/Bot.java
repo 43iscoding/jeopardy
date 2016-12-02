@@ -1,5 +1,7 @@
 package jeopardy.game.bot;
 
+import jeopardy.game.Player;
+
 /**
  * Created with IntelliJ IDEA.
  * User: User
@@ -10,4 +12,7 @@ public interface Bot {
 
     void sendMessage(Object message);
 
+    void cleanup();
+
+    void updatePlayerName(Player player);
 }

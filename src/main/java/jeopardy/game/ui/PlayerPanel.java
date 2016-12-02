@@ -19,7 +19,7 @@ public class PlayerPanel extends JFrame {
     private JPanel light;
 
     public PlayerPanel(Player player, Game game) throws HeadlessException {
-        super("Player" + player.getId());
+        super("Player" + player.getIndex());
         this.game = game;
         this.player = player;
         init();
@@ -90,7 +90,7 @@ public class PlayerPanel extends JFrame {
 
             //wheel click
             if (me.getButton() == 2) {
-                game.receiveMessage(player.getName(), "+");
+                game.receiveMessage(player.getUserId(), "+");
             }
 
             //right click

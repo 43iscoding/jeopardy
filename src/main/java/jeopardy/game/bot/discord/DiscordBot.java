@@ -8,9 +8,13 @@ import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.*;
+import sx.blah.discord.util.DiscordException;
+import sx.blah.discord.util.MessageBuilder;
+import sx.blah.discord.util.MissingPermissionsException;
+import sx.blah.discord.util.RateLimitException;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -27,7 +31,8 @@ public class DiscordBot extends AbstractBot {
     public static final String TAG_CODE_BLOCK = "```";
 
     private IDiscordClient client;
-    private IChannel jeopardyChannel;
+    private IChannel channel;
+    private IGuild guild;
 
     private final String jeopardyChannelID = "212184742345441280";
 
@@ -35,14 +40,21 @@ public class DiscordBot extends AbstractBot {
 
     private MessageBuilder messageBuilder;
 
-
-    public DiscordBot(Game game, Map<String, String> users) {
-        super(game, users);
+    public DiscordBot(Game game) {
+        super(game);
         try {
             client = new ClientBuilder().withToken("MjEyMTc0MTc5MDMyNjI5MjQ4.CooD4w.WQjEnK7N2qNC4JAEGbnDZaHKvVo").login();
             client.getDispatcher().registerListener((IListener<ReadyEvent>)event -> {
-                jeopardyChannel = client.getChannelByID(jeopardyChannelID);
-                messageBuilder = new MessageBuilder(client).withChannel(jeopardyChannel);
+                channel = client.getChannelByID(jeopardyChannelID);
+                messageBuilder = new MessageBuilder(client).withChannel(channel);
+                guild = channel.getGuild();
+                for (IUser user : channel.getUsersHere()) {
+                    if (!user.getRolesForGuild(guild).stream().anyMatch(r -> r.getName().equals("@player"))) {
+                        continue;
+                    }
+
+                    users.put(user.getID(), user.getDisplayName(guild));
+                }
                 registerUsers();
                 for (String message : onReadyMessages) {
                     sendMessage(message);
@@ -51,9 +63,9 @@ public class DiscordBot extends AbstractBot {
             });
             client.getDispatcher().registerListener((IListener<MessageReceivedEvent>) event -> {
                 IMessage message = event.getMessage();
-                if (!message.getChannel().equals(jeopardyChannel)) return;
+                if (!message.getChannel().equals(channel)) return;
 
-                game.receiveMessage(message.getAuthor().getName(), message.getContent());
+                game.receiveMessage(message.getAuthor().getID(), message.getContent());
             });
         } catch (DiscordException e) {
             e.printStackTrace();
@@ -66,34 +78,44 @@ public class DiscordBot extends AbstractBot {
             onReadyMessages.offer(message);
             return;
         }
-        RequestBuffer.request(() -> {
+        /*RequestBuffer.request(() -> {
             try {
                 messageBuilder.withContent(message).build();
             } catch (DiscordException | MissingPermissionsException e) {
-                System.out.println("Error on sending message: " + message + " to channel " + jeopardyChannel);
+                System.out.println("Error on sending message: " + message + " to channel " + channel);
                 e.printStackTrace();
             }
-
-        });
-
-
+        });*/
     }
 
     @Override
     protected boolean userExists(String userId) {
-        for (IUser user : jeopardyChannel.getUsersHere()) {
-            if (user.getName().equals(userId)) return true;
-        }
-        return false;
+        return guild.getUserByID(userId) != null;
     }
 
     @Override
-    protected String updateName(String userId, String displayName) {
+    public String updateName(String userId, String displayName) {
+        try {
+            IUser user = guild.getUserByID(userId);
+            System.out.println("Updating name: " + user.getDisplayName(guild) + " -> " + displayName);
+
+            guild.setUserNickname(user, displayName);
+        } catch (MissingPermissionsException | DiscordException | RateLimitException e) {
+            e.printStackTrace();
+        }
         return displayName;
     }
 
     @Override
     protected String cleanFormatting(String message) {
         return message.replace(TAG_CODE_BLOCK, "");
+    }
+
+    @Override
+    public void cleanup() {
+        System.out.println("Discord cleanup");
+        for (Map.Entry<String, String> entry : users.entrySet()) {
+            updateName(entry.getKey(), entry.getValue());
+        }
     }
 }

@@ -51,6 +51,10 @@ public class Game {
         bot.sendMessage(message);
     }
 
+    public static void updatePlayerName(Player player) {
+        instance.bot.updatePlayerName(player);
+    }
+
     public Map<String, Player> players = new HashMap<>();
 
     private GameConfig config;
@@ -95,15 +99,15 @@ public class Game {
         roundsBySection.get(section).put(theme, rounds);
     }
 
-    public void registerPlayer(String name) {
-        Player player = new Player(name);
+    public void registerPlayer(String userId, String name) {
+        Player player = new Player(userId, name);
         Saves.saveScore(player);
         Saves.saveName(player);
-        players.put(name, player);
+        players.put(userId, player);
         panel.registerPlayer(player);
 
         lastCorrect = player;
-        System.out.println("Player" + player.getId() + ": " + name);
+        System.out.println("Player" + player.getIndex() + ": " + name);
         controller.syncScore();
     }
 
@@ -271,14 +275,14 @@ public class Game {
         return tied;
     }
 
-    public void receiveMessage(String name, String message) {
+    public void receiveMessage(String playerId, String message) {
         if (currentRound == null) return;
 
         if (!currentRound.started()) return;
 
-        Player player = players.get(name);
+        Player player = players.get(playerId);
         if (player == null) {
-            System.out.println("ERROR! NO PLAYER WITH NAME : " + name);
+            System.out.println("ERROR! NO PLAYER WITH ID: " + playerId);
             return;
         }
 
@@ -424,5 +428,9 @@ public class Game {
     private void printSelectionPanel() {
         bot.sendMessage(mainDisplay.printSelectionPanel());
         bot.sendMessage(lastCorrect.getName() + ", please choose a question.");
+    }
+
+    public void cleanup() {
+        bot.cleanup();
     }
 }

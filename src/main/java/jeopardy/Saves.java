@@ -17,11 +17,11 @@ public class Saves {
     public static final String namesTemplate = "src/main/resources/names/player";
 
     private static String getScoresFile(Player player) {
-        return scoresTemplate + player.getId() + ".txt";
+        return scoresTemplate + player.getIndex() + ".txt";
     }
 
     private static String getNamesFile(Player player) {
-        return namesTemplate + player.getId() + ".txt";
+        return namesTemplate + player.getIndex() + ".txt";
     }
 
     private static void saveText(String path, Object value) {

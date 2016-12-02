@@ -5,17 +5,19 @@ package jeopardy.game;
  */
 public class Player implements Comparable<Player> {
 
-    public static int ID = 0;
+    public static int INDEX = 0;
 
-    private int id;
-    private String name;
+    private final String userId;
+    private final int index;
+    private final String name;
     private int score;
     //last delta
     private int delta;
 
-    public Player(String name) {
+    public Player(String userId, String name) {
+        this.userId = userId;
         this.name = name;
-        this.id = ++ID;
+        this.index = ++INDEX;
     }
 
     public String getName() {
@@ -29,10 +31,15 @@ public class Player implements Comparable<Player> {
     public void addScore(int delta) {
         this.delta = delta;
         this.score += delta;
+        Game.updatePlayerName(this);
     }
 
-    public int getId() {
-        return id;
+    public int getIndex() {
+        return index;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     @Override
@@ -60,12 +67,12 @@ public class Player implements Comparable<Player> {
 
         Player player = (Player) o;
 
-        return id == player.id;
+        return index == player.index;
 
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return index;
     }
 }

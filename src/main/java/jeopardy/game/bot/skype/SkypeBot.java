@@ -25,7 +25,6 @@ public class SkypeBot extends AbstractBot {
         } else {
             chat = Skype.groupChat(chatId);
             System.out.println("Reused existing chat");
-
         }
 
         if (chat == null) {
@@ -77,7 +76,7 @@ public class SkypeBot extends AbstractBot {
     }
 
     @Override
-    protected String updateName(String userId, String displayName) {
+    public String updateName(String userId, String displayName) {
         User user = getUser(userId);
         if (user == null) {
             System.out.println("User not found: " + userId);
