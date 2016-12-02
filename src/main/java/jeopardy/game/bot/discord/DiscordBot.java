@@ -11,10 +11,7 @@ import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.MessageBuilder;
-import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
+import sx.blah.discord.util.*;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -78,14 +75,14 @@ public class DiscordBot extends AbstractBot {
             onReadyMessages.offer(message);
             return;
         }
-        /*RequestBuffer.request(() -> {
+        RequestBuffer.request(() -> {
             try {
                 messageBuilder.withContent(message).build();
             } catch (DiscordException | MissingPermissionsException e) {
                 System.out.println("Error on sending message: " + message + " to channel " + channel);
                 e.printStackTrace();
             }
-        });*/
+        });
     }
 
     @Override
