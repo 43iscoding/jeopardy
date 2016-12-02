@@ -48,6 +48,17 @@ public abstract class AbstractBot implements Bot {
         sendMessage(message.toString());
     }
 
+    @Override
+    public void sendUniqueMessage(Object message, String id) {
+        if (Config.LOG_BOT_MESSAGES) {
+            System.out.println("Bot: \n" + cleanFormatting(message.toString()));
+        }
+
+        if (Config.MUTE_BOT) return;
+
+        sendUniqueMessage(message.toString(), id);
+    }
+
     protected void registerUsers() {
         Map<String, String> realUsers = new HashMap<>();
         for (String userId : users.keySet()) {
@@ -75,6 +86,10 @@ public abstract class AbstractBot implements Bot {
     }
 
     protected abstract void sendMessage(String message);
+
+    protected void sendUniqueMessage(String message, String id) {
+        sendMessage(message);
+    }
 
     protected abstract boolean userExists(String userId);
 

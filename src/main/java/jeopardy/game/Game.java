@@ -426,8 +426,7 @@ public class Game {
     }
 
     private void printSelectionPanel() {
-        bot.sendMessage(mainDisplay.printSelectionPanel());
-        bot.sendMessage(lastCorrect.getName() + ", please choose a question.");
+        bot.sendUniqueMessage(mainDisplay.printSelectionPanel() + "\n" + lastCorrect.getName() + ", please choose a question.", "selection_panel");
     }
 
     public void cleanup() {

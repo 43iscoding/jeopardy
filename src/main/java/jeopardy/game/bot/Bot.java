@@ -12,6 +12,8 @@ public interface Bot {
 
     void sendMessage(Object message);
 
+    void sendUniqueMessage(Object message, String id);
+
     void cleanup();
 
     void updatePlayerName(Player player);

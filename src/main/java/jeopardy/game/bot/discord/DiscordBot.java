@@ -13,6 +13,7 @@ import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.*;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
@@ -67,6 +68,40 @@ public class DiscordBot extends AbstractBot {
         } catch (DiscordException e) {
             e.printStackTrace();
         }
+    }
+
+    private Map<String, String> uniqueMessages = new HashMap<>();
+
+    @Override
+    public void sendUniqueMessage(String message, String tag) {
+        String messageId = uniqueMessages.get(tag);
+        if (messageId != null) {
+            IMessage sent = channel.getMessageByID(messageId);
+            if (sent != null) {
+                RequestBuffer.request(() -> {
+                    try {
+                        sent.delete();
+                    } catch (DiscordException | MissingPermissionsException e) {
+                        System.out.println("Error editing message: " + message + " in channel " + channel);
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }
+
+        if (!client.isReady()) {
+            onReadyMessages.offer(message);
+            return;
+        }
+        RequestBuffer.request(() -> {
+            try {
+                IMessage sent = messageBuilder.withContent(message).build();
+                uniqueMessages.put(tag, sent.getID());
+            } catch (DiscordException | MissingPermissionsException e) {
+                System.out.println("Error on sending message: " + message + " to channel " + channel);
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
